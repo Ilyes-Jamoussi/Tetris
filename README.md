@@ -12,7 +12,9 @@
 ## Overview
 Welcome to the Tetris game project! This project aims to recreate the classic Tetris game using Python. Tetris is a tile-matching puzzle game originally designed and programmed by Alexey Pajitnov. The goal of the game is to manipulate tetrominoes to create horizontal lines of blocks without gaps. When such a line is created, it disappears, and any blocks above the cleared line fall. The game ends when the tetrominoes stack up to the top of the playing field.
 
-![Tetris Game Demo](TetrisGame.gif)
+<div align="center">
+    <img src="TetrisGame.gif" alt="Tetris Game Demo" width="400">
+</div>
 
 In this project, you will find the implementation of the Tetris game, including features such as grid initialization, piece rotation, and checking for complete lines. Additionally, you can test the game features using unit tests.
 
@@ -71,7 +73,9 @@ python testTetris.py
 ## Aperçu
 Bienvenue dans le projet de jeu Tetris ! Ce projet vise à recréer le jeu classique Tetris en utilisant Python. Tetris est un jeu de puzzle de correspondance de tuiles initialement conçu et programmé par Alexey Pajitnov. L'objectif du jeu est de manipuler des tétriminos pour créer des lignes horizontales de blocs sans espaces. Lorsqu'une telle ligne est créée, elle disparaît et tout bloc au-dessus de la ligne supprimée tombera. Le jeu se termine lorsque les tétriminos s'empilent jusqu'en haut du champ de jeu.
 
-![Tetris Game Demo](TetrisGame.gif)
+<div align="center">
+    <img src="TetrisGame.gif" alt="Tetris Game Demo" width="400">
+</div>
 
 Dans ce projet, vous trouverez l'implémentation du jeu Tetris, y compris des fonctionnalités telles que l'initialisation de la grille, la rotation des pièces et la vérification des lignes complètes. De plus, vous pourrez tester les fonctionnalités du jeu à l'aide de tests unitaires.
 
