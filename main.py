@@ -54,7 +54,7 @@ def drawWindow(surface, grid, score=0, last_score = 0):
     font = pygame.font.SysFont('comicsans', 60)
     label = font.render('Tetris', 1, (255, 255, 255))
 
-    surface.blit(label, (HAUT_GAUCHE_X + LARGEUR_GRILLE_PIXEL / 2 - (label.get_width() / 2), 30))
+    surface.blit(label, (HAUT_GAUCHE_X + LARGEUR_GRILLE_PIXEL / 2 - (label.get_width() / 2), 10))
 
     # current score
     font = pygame.font.SysFont('comicsans', 30)
