@@ -14,6 +14,7 @@ Welcome to the Tetris game project! This project aims to recreate the classic Te
 
 <div align="center">
     <img src="TetrisGame.gif" alt="Tetris Game Demo" width="500">
+    <br>
 </div>
 
 In this project, you will find the implementation of the Tetris game, including features such as grid initialization, piece rotation, and checking for complete lines. Additionally, you can test the game features using unit tests.
