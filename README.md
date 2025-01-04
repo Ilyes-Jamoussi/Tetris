@@ -7,8 +7,6 @@
 
 </div>
 
----
-
 ## Overview
 Welcome to the Tetris game project! This project aims to recreate the classic Tetris game using Python. Tetris is a tile-matching puzzle game originally designed and programmed by Alexey Pajitnov. The goal of the game is to manipulate tetrominoes to create horizontal lines of blocks without gaps. When such a line is created, it disappears, and any blocks above the cleared line fall. The game ends when the tetrominoes stack up to the top of the playing field.
 
@@ -17,15 +15,11 @@ Welcome to the Tetris game project! This project aims to recreate the classic Te
 </div>
 In this project, you will find the implementation of the Tetris game, including features such as grid initialization, piece rotation, and checking for complete lines. Additionally, you can test the game features using unit tests.
 
----
-
 ## Prerequisites
 
 Before starting, make sure you have the following installed on your system:
 - **Python 3.6 or later** (use Homebrew to install it if necessary).
 - **pip** (Python's package manager).
-
----
 
 ## Project Setup
 
