@@ -1,4 +1,4 @@
-# Tetris Game
+# Tetris
 
 <div align="center">
   
