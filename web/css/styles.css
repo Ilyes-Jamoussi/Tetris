@@ -287,21 +287,87 @@ header h1 {
 /* === CONTROLS === */
 #controls {
     margin-top: 30px;
-    padding: 20px;
+    padding: 30px;
     background: var(--bg-glass);
-    border-radius: 12px;
+    border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-#controls p {
-    font-size: 14px;
-    line-height: 2;
-    color: var(--text-secondary);
+#controls h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
 }
 
-#controls strong {
+.controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+}
+
+.control-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    transition: var(--transition-smooth);
+    cursor: default;
+}
+
+.control-item:hover {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+}
+
+.key-icon {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 0, 255, 0.2));
+    border: 2px solid var(--primary);
+    border-radius: 8px;
     color: var(--primary);
-    font-weight: 600;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+    transition: var(--transition-smooth);
+}
+
+.key-icon.space {
+    width: 80px;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.control-item:hover .key-icon {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.4), rgba(255, 0, 255, 0.4));
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+    transform: scale(1.1);
+}
+
+.control-item span {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-align: center;
+}
+
+.control-item:hover span {
+    color: var(--primary);
 }
 
 /* === GAME OVER MODAL === */
@@ -465,6 +531,30 @@ header h1 {
     #gameOver h2 {
         font-size: 32px;
     }
+    
+    /* Controls responsive */
+    .controls-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .control-item {
+        padding: 12px;
+    }
+    
+    .key-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    .key-icon.space {
+        width: 60px;
+        font-size: 10px;
+    }
+    
+    .control-item span {
+        font-size: 11px;
+    }
 }
 
 /* === LOADING ANIMATION === */
@@ -498,6 +588,23 @@ header h1 {
 
 .info-box {
     transition: transform var(--transition-smooth);
+}
+
+/* === KEY PRESS ANIMATION === */
+@keyframes keyPress {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.key-icon.active {
+    animation: keyPress 0.2s ease-out;
 }
 
 /* === PAUSE OVERLAY === */
