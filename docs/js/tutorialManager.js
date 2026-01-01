@@ -90,20 +90,36 @@ export class TutorialManager {
         this.stepEl.textContent = this.currentStep + 1;
         
         const rect = target.getBoundingClientRect();
-        this.spotlight.style.width = `${rect.width + 20}px`;
-        this.spotlight.style.height = `${rect.height + 20}px`;
-        this.spotlight.style.left = `${rect.left - 10}px`;
-        this.spotlight.style.top = `${rect.top - 10}px`;
+        
+        // For canvas wrapper, use the canvas itself for better fit
+        let spotlightRect = rect;
+        if (step.target === '[data-tutorial="game"]') {
+            const canvas = document.getElementById('mainCanvas');
+            if (canvas) {
+                spotlightRect = canvas.getBoundingClientRect();
+            }
+        }
+        
+        this.spotlight.style.width = `${spotlightRect.width + 20}px`;
+        this.spotlight.style.height = `${spotlightRect.height + 20}px`;
+        this.spotlight.style.left = `${spotlightRect.left - 10}px`;
+        this.spotlight.style.top = `${spotlightRect.top - 10}px`;
         
         // Position tooltip intelligently
-        const tooltipX = rect.left + rect.width / 2;
-        let tooltipY = rect.bottom + 30;
+        const tooltipX = spotlightRect.left + spotlightRect.width / 2;
+        let tooltipY = spotlightRect.bottom + 30;
         let transform = 'translateX(-50%)';
         
         // If tooltip would go off bottom, place it above
-        if (tooltipY + 200 > window.innerHeight) {
-            tooltipY = rect.top - 30;
+        if (tooltipY + 250 > window.innerHeight) {
+            tooltipY = spotlightRect.top - 30;
             transform = 'translateX(-50%) translateY(-100%)';
+        }
+        
+        // Ensure tooltip is at least 20px from top
+        if (tooltipY < 20) {
+            tooltipY = 20;
+            transform = 'translateX(-50%)';
         }
         
         // If tooltip would go off right, adjust
