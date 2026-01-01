@@ -74,9 +74,6 @@ export class TutorialManager {
     attachEvents() {
         this.nextBtn.addEventListener('click', () => this.next());
         this.skipBtn.addEventListener('click', () => this.end());
-        this.overlay.addEventListener('click', (e) => {
-            if (e.target === this.overlay) this.end();
-        });
     }
 
     start() {
