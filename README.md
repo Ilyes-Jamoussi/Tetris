@@ -103,12 +103,6 @@ python testTetris.py
 
 ---
 
-## License
-
-This project is open source and available for educational purposes.
-
----
-
 <br>
 
 ## Aperçu
@@ -202,20 +196,6 @@ python testTetris.py
 | ↓ | Descente rapide |
 | ESPACE | Chute instantanée |
 | P | Pause |
-
----
-
-## Licence
-
-Ce projet est open source et disponible à des fins éducatives.
-
----
-
-<div align="center">
-  
-**[▶️ Play Now](https://tetris-game-project.netlify.app)**
-
-</div>
 
 
 
