@@ -36,7 +36,6 @@ class TetrisGame {
         
         this.initializeControls();
         this.initializeUI();
-        this.checkFirstVisit();
     }
 
     initializeControls() {
@@ -59,12 +58,6 @@ class TetrisGame {
         
         document.getElementById('gameMode').value = this.stateManager.getGameMode();
         this.stateManager.updateUI();
-    }
-
-    checkFirstVisit() {
-        if (this.tutorialManager.shouldShowOnLoad()) {
-            setTimeout(() => this.tutorialManager.start(), 1000);
-        }
     }
 
     handleKeyPress(event) {
