@@ -105,8 +105,6 @@ class TetrisGame {
         
         if (!this.gridManager.isValidPosition(this.pieceManager.getPositions())) {
             this.pieceManager.undoMove(direction);
-        } else {
-            this.audioManager.play('move');
         }
     }
 
@@ -116,6 +114,9 @@ class TetrisGame {
         if (this.gridManager.isValidPosition(positions)) {
             this.scoreManager.addSoftDropScore();
             this.uiManager.updateScore();
+        } else {
+            // Piece landed
+            this.audioManager.play('drop');
         }
     }
 
@@ -144,7 +145,6 @@ class TetrisGame {
         
         if (this.gridManager.isValidPosition(positions)) {
             this.pieceManager.currentPiece.shape = rotatedShape;
-            this.audioManager.play('rotate');
         }
     }
 
@@ -155,7 +155,6 @@ class TetrisGame {
             if (!this.gridManager.isValidPosition(this.pieceManager.getPositions())) {
                 this.gameOver();
             }
-            this.audioManager.play('rotate');
         }
     }
 
@@ -283,6 +282,9 @@ class TetrisGame {
         
         this.stateManager.setState(GAME_STATES.PLAYING);
         
+        // Start background music
+        this.audioManager.startBackgroundMusic();
+        
         this.lastTime = performance.now();
         this.gameLoop(this.lastTime);
     }
@@ -298,6 +300,9 @@ class TetrisGame {
     gameOver() {
         this.stateManager.setState(GAME_STATES.GAME_OVER);
         cancelAnimationFrame(this.animationId);
+        
+        // Stop background music
+        this.audioManager.stopBackgroundMusic();
         
         this.audioManager.play('gameOver');
         this.scoreManager.saveScore();
