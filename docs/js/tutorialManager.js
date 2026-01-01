@@ -121,35 +121,56 @@ export class TutorialManager {
         this.spotlight.style.top = `${spotlightRect.top - 10}px`;
         
         // Position tooltip intelligently
-        const tooltipX = spotlightRect.left + spotlightRect.width / 2;
-        let tooltipY = spotlightRect.bottom + 30;
-        let transform = 'translateX(-50%)';
+        let tooltipX, tooltipY, transform;
         
-        // If tooltip would go off bottom, place it above
-        if (tooltipY + 250 > window.innerHeight) {
-            tooltipY = spotlightRect.top - 30;
-            transform = 'translateX(-50%) translateY(-100%)';
-        }
-        
-        // Ensure tooltip is at least 20px from top
-        if (tooltipY < 20) {
-            tooltipY = 20;
-            transform = 'translateX(-50%)';
-        }
-        
-        // If tooltip would go off right, adjust
-        if (tooltipX + 210 > window.innerWidth) {
-            this.tooltip.style.left = `${window.innerWidth - 230}px`;
-            this.tooltip.style.transform = 'none';
-        } else if (tooltipX - 210 < 0) {
-            this.tooltip.style.left = '20px';
-            this.tooltip.style.transform = 'none';
+        // For game canvas, place tooltip to the right
+        if (step.target === '[data-tutorial="game"]') {
+            tooltipX = spotlightRect.right + 30;
+            tooltipY = spotlightRect.top + spotlightRect.height / 2;
+            transform = 'translateY(-50%)';
+            
+            // If would go off right, place to the left
+            if (tooltipX + 420 > window.innerWidth) {
+                tooltipX = spotlightRect.left - 30;
+                transform = 'translateX(-100%) translateY(-50%)';
+            }
         } else {
-            this.tooltip.style.left = `${tooltipX}px`;
-            this.tooltip.style.transform = transform;
+            // Default positioning for other steps
+            tooltipX = spotlightRect.left + spotlightRect.width / 2;
+            tooltipY = spotlightRect.bottom + 30;
+            transform = 'translateX(-50%)';
+            
+            // If tooltip would go off bottom, place it above
+            if (tooltipY + 250 > window.innerHeight) {
+                tooltipY = spotlightRect.top - 30;
+                transform = 'translateX(-50%) translateY(-100%)';
+            }
+            
+            // Ensure tooltip is at least 20px from top
+            if (tooltipY < 20) {
+                tooltipY = 20;
+                transform = 'translateX(-50%)';
+            }
+            
+            // If tooltip would go off right, adjust
+            if (tooltipX + 210 > window.innerWidth) {
+                this.tooltip.style.left = `${window.innerWidth - 230}px`;
+                this.tooltip.style.top = `${tooltipY}px`;
+                this.tooltip.style.transform = 'none';
+                this.nextBtn.textContent = this.currentStep === this.steps.length - 1 ? 'Finish' : 'Next';
+                return;
+            } else if (tooltipX - 210 < 0) {
+                this.tooltip.style.left = '20px';
+                this.tooltip.style.top = `${tooltipY}px`;
+                this.tooltip.style.transform = 'none';
+                this.nextBtn.textContent = this.currentStep === this.steps.length - 1 ? 'Finish' : 'Next';
+                return;
+            }
         }
         
+        this.tooltip.style.left = `${tooltipX}px`;
         this.tooltip.style.top = `${tooltipY}px`;
+        this.tooltip.style.transform = transform;
         
         this.nextBtn.textContent = this.currentStep === this.steps.length - 1 ? 'Finish' : 'Next';
     }
