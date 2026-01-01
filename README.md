@@ -2,11 +2,8 @@
 
 <div align="center">
   
-  [![Play Now](https://img.shields.io/badge/🎮_PLAY_NOW-Live_Demo-00d4ff?style=for-the-badge)](https://tetris-game-project.netlify.app)
-  
-  **Classic Tetris Game - HTML5 | CSS3 | JavaScript ES6**
-  
-  [English](#overview) • [Français](#aperçu)
+  [<img src="https://img.shields.io/badge/-English-blue?style=for-the-badge">](#overview)
+  [<img src="https://img.shields.io/badge/-Français-green?style=for-the-badge">](#aperçu)
 
 </div>
 
@@ -16,13 +13,11 @@
 
 A modern implementation of the classic Tetris game featuring a sleek cyberpunk design, smooth animations, and responsive gameplay. Built with vanilla JavaScript and deployed on Netlify.
 
+### [▶️ Play Now](https://tetris-game-project.netlify.app)
+
 <div align="center">
     <img src="TetrisGame.gif" alt="Tetris Game Demo" width="450">
 </div>
-
-### 🚀 Live Demo
-
-**Play online:** [https://tetris-game-project.netlify.app](https://tetris-game-project.netlify.app)
 
 ### ✨ Features
 
@@ -58,12 +53,6 @@ web/
     ├── renderer.js       # Canvas rendering
     ├── scoreManager.js   # Score & localStorage
     └── uiManager.js      # UI updates
-```
-
-### Local Development
-```bash
-# Simply open web/index.html in a browser
-# No build process required
 ```
 
 ---
@@ -114,14 +103,6 @@ python testTetris.py
 
 ---
 
-## Deployment
-
-Configured for automatic deployment on Netlify via `netlify.toml`.
-
-**Publish directory:** `web`
-
----
-
 ## License
 
 This project is open source and available for educational purposes.
@@ -134,13 +115,11 @@ This project is open source and available for educational purposes.
 
 Une implémentation moderne du jeu Tetris classique avec un design cyberpunk élégant, des animations fluides et un gameplay réactif. Développé en JavaScript vanilla et déployé sur Netlify.
 
+### [▶️ Jouer Maintenant](https://tetris-game-project.netlify.app)
+
 <div align="center">
     <img src="TetrisGame.gif" alt="Tetris Game Demo" width="450">
 </div>
-
-### 🚀 Démo en direct
-
-**Jouer en ligne :** [https://tetris-game-project.netlify.app](https://tetris-game-project.netlify.app)
 
 ### ✨ Fonctionnalités
 
@@ -176,12 +155,6 @@ web/
     ├── renderer.js       # Rendu Canvas
     ├── scoreManager.js   # Score & localStorage
     └── uiManager.js      # Mises à jour UI
-```
-
-### Développement Local
-```bash
-# Ouvrir simplement web/index.html dans un navigateur
-# Aucun processus de build requis
 ```
 
 ---
@@ -229,14 +202,6 @@ python testTetris.py
 | ↓ | Descente rapide |
 | ESPACE | Chute instantanée |
 | P | Pause |
-
----
-
-## Déploiement
-
-Configuré pour un déploiement automatique sur Netlify via `netlify.toml`.
-
-**Répertoire de publication :** `web`
 
 ---
 
