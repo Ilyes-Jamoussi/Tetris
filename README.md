@@ -2,192 +2,255 @@
 
 <div align="center">
   
-  [<img src="https://img.shields.io/badge/-English-blue?style=for-the-badge">](#overview)
-  [<img src="https://img.shields.io/badge/-Français-green?style=for-the-badge">](#aperçu)
+  [![Play Now](https://img.shields.io/badge/🎮_PLAY_NOW-Live_Demo-00d4ff?style=for-the-badge)](https://tetris-game-project.netlify.app)
+  
+  **Classic Tetris Game - HTML5 | CSS3 | JavaScript ES6**
+  
+  [English](#overview) • [Français](#aperçu)
 
 </div>
+
+---
 
 ## Overview
-Welcome to the Tetris game project! This project includes both a Python desktop version and a modern web version of the classic Tetris game.
+
+A modern implementation of the classic Tetris game featuring a sleek cyberpunk design, smooth animations, and responsive gameplay. Built with vanilla JavaScript and deployed on Netlify.
 
 <div align="center">
-    <img src="TetrisGame.gif" alt="Tetris Game Demo" width="450"><br><br>
+    <img src="TetrisGame.gif" alt="Tetris Game Demo" width="450">
 </div>
 
-### 🎮 Web Version (Recommended)
-A complete HTML5/JavaScript implementation ready for deployment:
-- **Location:** `/web` directory
-- **Features:** Full Tetris gameplay, score saving, responsive design
-- **Play Online:** [Deploy on Netlify](https://netlify.com)
+### 🚀 Live Demo
 
-### 🐍 Python Desktop Version
-Original pygame implementation for local play:
-- **Location:** Root directory
-- **Features:** Classic Tetris with pygame graphics
+**Play online:** [https://tetris-game-project.netlify.app](https://tetris-game-project.netlify.app)
+
+### ✨ Features
+
+- Modern cyberpunk-inspired UI with neon effects
+- Particle system for line clear animations
+- Real-time score tracking with localStorage
+- Responsive design (desktop & mobile)
+- Smooth animations and transitions
+- Next piece preview
+- Pause functionality
 
 ---
 
-## Web Version Setup
+## Web Version
 
-The web version is production-ready and requires no installation:
+### Tech Stack
+- HTML5 Canvas for game rendering
+- CSS3 with custom properties and animations
+- JavaScript ES6 modules
+- Modular architecture (7 independent modules)
 
+### Project Structure
+```
+web/
+├── index.html
+├── css/
+│   └── styles.css
+└── js/
+    ├── main.js           # Game controller
+    ├── constants.js      # Configuration
+    ├── gridManager.js    # Grid logic
+    ├── pieceManager.js   # Piece management
+    ├── renderer.js       # Canvas rendering
+    ├── scoreManager.js   # Score & localStorage
+    └── uiManager.js      # UI updates
+```
+
+### Local Development
 ```bash
 # Simply open web/index.html in a browser
-# Or deploy to Netlify using the netlify.toml configuration
+# No build process required
 ```
-
-**Deployment:** The project is configured for automatic deployment on Netlify. Just connect your repository!
 
 ---
 
-## Python Desktop Version Setup
+## Python Desktop Version
+
+Classic pygame implementation for offline play.
 
 ### Prerequisites
-- **Python 3.6 or later**
-- **pip** (Python's package manager)
+- Python 3.6+
+- pip
 
 ### Installation
 
-#### Windows
+**Windows:**
 ```bash
 python -m pip install pygame numpy
 ```
 
-#### MacOS
+**macOS:**
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 pip install pygame numpy
 ```
 
-### Run the Game
+### Run
 ```bash
 python main.py
 ```
 
-### Run Tests
+### Tests
 ```bash
 python testTetris.py
 ```
 
 ---
 
-## Project Structure
+## Controls
 
-```
-Tetris/
-├── web/                    # Web version (HTML5/JS)
-│   ├── index.html
-│   ├── css/
-│   │   └── styles.css
-│   └── js/
-│       ├── main.js
-│       ├── constants.js
-│       ├── gridManager.js
-│       ├── pieceManager.js
-│       ├── renderer.js
-│       ├── scoreManager.js
-│       └── uiManager.js
-├── main.py                 # Python desktop version
-├── fonctions.py
-├── consts.py
-├── utils/
-└── netlify.toml           # Deployment configuration
-```
+| Key | Action |
+|-----|--------|
+| ← → | Move piece |
+| ↑ | Rotate |
+| ↓ | Soft drop |
+| SPACE | Hard drop |
+| P | Pause |
 
 ---
 
-<br><br><br>
+## Deployment
+
+Configured for automatic deployment on Netlify via `netlify.toml`.
+
+**Publish directory:** `web`
 
 ---
+
+## License
+
+This project is open source and available for educational purposes.
+
+---
+
+<br>
 
 ## Aperçu
-Bienvenue dans le projet de jeu Tetris ! Ce projet comprend une version desktop Python et une version web moderne du jeu classique Tetris.
+
+Une implémentation moderne du jeu Tetris classique avec un design cyberpunk élégant, des animations fluides et un gameplay réactif. Développé en JavaScript vanilla et déployé sur Netlify.
 
 <div align="center">
-    <img src="TetrisGame.gif" alt="Tetris Game Demo" width="450"><br><br>
+    <img src="TetrisGame.gif" alt="Tetris Game Demo" width="450">
 </div>
 
-### 🎮 Version Web (Recommandée)
-Une implémentation complète HTML5/JavaScript prête pour le déploiement :
-- **Emplacement :** Répertoire `/web`
-- **Fonctionnalités :** Gameplay Tetris complet, sauvegarde des scores, design responsive
-- **Jouer en ligne :** [Déployer sur Netlify](https://netlify.com)
+### 🚀 Démo en direct
 
-### 🐍 Version Desktop Python
-Implémentation pygame originale pour jouer localement :
-- **Emplacement :** Répertoire racine
-- **Fonctionnalités :** Tetris classique avec graphiques pygame
+**Jouer en ligne :** [https://tetris-game-project.netlify.app](https://tetris-game-project.netlify.app)
+
+### ✨ Fonctionnalités
+
+- Interface moderne inspirée cyberpunk avec effets néon
+- Système de particules pour les animations
+- Suivi des scores en temps réel avec localStorage
+- Design responsive (desktop & mobile)
+- Animations et transitions fluides
+- Aperçu de la prochaine pièce
+- Fonction pause
 
 ---
 
-## Configuration Version Web
+## Version Web
 
-La version web est prête pour la production et ne nécessite aucune installation :
+### Stack Technique
+- HTML5 Canvas pour le rendu du jeu
+- CSS3 avec propriétés personnalisées et animations
+- Modules JavaScript ES6
+- Architecture modulaire (7 modules indépendants)
 
-```bash
-# Ouvrez simplement web/index.html dans un navigateur
-# Ou déployez sur Netlify en utilisant la configuration netlify.toml
+### Structure du Projet
+```
+web/
+├── index.html
+├── css/
+│   └── styles.css
+└── js/
+    ├── main.js           # Contrôleur du jeu
+    ├── constants.js      # Configuration
+    ├── gridManager.js    # Logique de la grille
+    ├── pieceManager.js   # Gestion des pièces
+    ├── renderer.js       # Rendu Canvas
+    ├── scoreManager.js   # Score & localStorage
+    └── uiManager.js      # Mises à jour UI
 ```
 
-**Déploiement :** Le projet est configuré pour un déploiement automatique sur Netlify. Connectez simplement votre dépôt !
+### Développement Local
+```bash
+# Ouvrir simplement web/index.html dans un navigateur
+# Aucun processus de build requis
+```
 
 ---
 
-## Configuration Version Desktop Python
+## Version Desktop Python
+
+Implémentation pygame classique pour jouer hors ligne.
 
 ### Prérequis
-- **Python 3.6 ou plus récent**
-- **pip** (gestionnaire de packages Python)
+- Python 3.6+
+- pip
 
 ### Installation
 
-#### Windows
+**Windows :**
 ```bash
 python -m pip install pygame numpy
 ```
 
-#### MacOS
+**macOS :**
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 pip install pygame numpy
 ```
 
-### Lancer le jeu
+### Exécution
 ```bash
 python main.py
 ```
 
-### Lancer les tests
+### Tests
 ```bash
 python testTetris.py
 ```
 
 ---
 
-## Structure du Projet
+## Contrôles
 
-```
-Tetris/
-├── web/                    # Version web (HTML5/JS)
-│   ├── index.html
-│   ├── css/
-│   │   └── styles.css
-│   └── js/
-│       ├── main.js
-│       ├── constants.js
-│       ├── gridManager.js
-│       ├── pieceManager.js
-│       ├── renderer.js
-│       ├── scoreManager.js
-│       └── uiManager.js
-├── main.py                 # Version desktop Python
-├── fonctions.py
-├── consts.py
-├── utils/
-└── netlify.toml           # Configuration de déploiement
-```
+| Touche | Action |
+|--------|--------|
+| ← → | Déplacer |
+| ↑ | Rotation |
+| ↓ | Descente rapide |
+| ESPACE | Chute instantanée |
+| P | Pause |
+
+---
+
+## Déploiement
+
+Configuré pour un déploiement automatique sur Netlify via `netlify.toml`.
+
+**Répertoire de publication :** `web`
+
+---
+
+## Licence
+
+Ce projet est open source et disponible à des fins éducatives.
+
+---
+
+<div align="center">
+  
+**[▶️ Play Now](https://tetris-game-project.netlify.app)**
+
+</div>
 
 
 
