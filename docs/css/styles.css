@@ -474,6 +474,7 @@ header h1 {
     text-shadow: 0 0 30px var(--danger);
     animation: pulse 1.5s ease-in-out infinite;
     letter-spacing: 4px;
+    text-align: center;
 }
 
 @keyframes pulse {
