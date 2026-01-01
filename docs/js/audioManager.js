@@ -9,8 +9,30 @@ export class AudioManager {
         this.musicEnabled = true;
         this.volume = 0.3;
         this.audioContext = null;
-        this.backgroundMusic = null;
+        this.musicPlaying = false;
         this.musicGainNode = null;
+        this.musicTimeoutId = null;
+        this.melody = [
+            { freq: 659.25, duration: 0.4 },  // E
+            { freq: 493.88, duration: 0.2 },  // B
+            { freq: 523.25, duration: 0.2 },  // C
+            { freq: 587.33, duration: 0.4 },  // D
+            { freq: 523.25, duration: 0.2 },  // C
+            { freq: 493.88, duration: 0.2 },  // B
+            { freq: 440.00, duration: 0.4 },  // A
+            { freq: 440.00, duration: 0.2 },  // A
+            { freq: 523.25, duration: 0.2 },  // C
+            { freq: 659.25, duration: 0.4 },  // E
+            { freq: 587.33, duration: 0.2 },  // D
+            { freq: 523.25, duration: 0.2 },  // C
+            { freq: 493.88, duration: 0.6 },  // B
+            { freq: 523.25, duration: 0.2 },  // C
+            { freq: 587.33, duration: 0.4 },  // D
+            { freq: 659.25, duration: 0.4 },  // E
+            { freq: 523.25, duration: 0.4 },  // C
+            { freq: 440.00, duration: 0.4 },  // A
+            { freq: 440.00, duration: 0.4 }   // A
+        ];
         this.initAudioContext();
     }
 
@@ -23,53 +45,39 @@ export class AudioManager {
         }
     }
 
-    startBackgroundMusic() {
-        if (!this.musicEnabled || !this.audioContext || this.backgroundMusic) return;
+    async startBackgroundMusic() {
+        if (!this.musicEnabled || !this.audioContext || this.musicPlaying) return;
         
         try {
-            // Tetris theme melody (simplified)
-            const melody = [
-                { freq: 659.25, duration: 0.4 },  // E
-                { freq: 493.88, duration: 0.2 },  // B
-                { freq: 523.25, duration: 0.2 },  // C
-                { freq: 587.33, duration: 0.4 },  // D
-                { freq: 523.25, duration: 0.2 },  // C
-                { freq: 493.88, duration: 0.2 },  // B
-                { freq: 440.00, duration: 0.4 },  // A
-                { freq: 440.00, duration: 0.2 },  // A
-                { freq: 523.25, duration: 0.2 },  // C
-                { freq: 659.25, duration: 0.4 },  // E
-                { freq: 587.33, duration: 0.2 },  // D
-                { freq: 523.25, duration: 0.2 },  // C
-                { freq: 493.88, duration: 0.6 },  // B
-                { freq: 523.25, duration: 0.2 },  // C
-                { freq: 587.33, duration: 0.4 },  // D
-                { freq: 659.25, duration: 0.4 },  // E
-                { freq: 523.25, duration: 0.4 },  // C
-                { freq: 440.00, duration: 0.4 },  // A
-                { freq: 440.00, duration: 0.4 }   // A
-            ];
+            // Resume audio context if suspended (browser autoplay policy)
+            if (this.audioContext.state === 'suspended') {
+                await this.audioContext.resume();
+            }
             
-            this.musicGainNode = this.audioContext.createGain();
-            this.musicGainNode.connect(this.audioContext.destination);
-            this.musicGainNode.gain.value = this.volume * 0.3; // Music quieter than SFX
+            this.musicPlaying = true;
             
-            this.playMelody(melody, 0);
+            if (!this.musicGainNode) {
+                this.musicGainNode = this.audioContext.createGain();
+                this.musicGainNode.connect(this.audioContext.destination);
+            }
+            this.musicGainNode.gain.value = this.volume * 0.3;
+            
+            this.playMelody(0);
         } catch (e) {
             console.warn('Background music failed:', e);
         }
     }
 
-    playMelody(melody, index) {
-        if (!this.musicEnabled || !this.audioContext) return;
+    playMelody(index) {
+        if (!this.musicEnabled || !this.audioContext || !this.musicPlaying) return;
         
-        if (index >= melody.length) {
+        if (index >= this.melody.length) {
             // Loop the melody
-            setTimeout(() => this.playMelody(melody, 0), 500);
+            this.musicTimeoutId = setTimeout(() => this.playMelody(0), 500);
             return;
         }
         
-        const note = melody[index];
+        const note = this.melody[index];
         const oscillator = this.audioContext.createOscillator();
         
         oscillator.connect(this.musicGainNode);
@@ -80,11 +88,15 @@ export class AudioManager {
         oscillator.start(now);
         oscillator.stop(now + note.duration);
         
-        setTimeout(() => this.playMelody(melody, index + 1), note.duration * 1000);
+        this.musicTimeoutId = setTimeout(() => this.playMelody(index + 1), note.duration * 1000);
     }
 
     stopBackgroundMusic() {
-        this.musicEnabled = false;
+        this.musicPlaying = false;
+        if (this.musicTimeoutId) {
+            clearTimeout(this.musicTimeoutId);
+            this.musicTimeoutId = null;
+        }
         if (this.musicGainNode) {
             this.musicGainNode.gain.value = 0;
         }

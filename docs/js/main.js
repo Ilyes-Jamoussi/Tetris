@@ -39,6 +39,15 @@ class TetrisGame {
     }
 
     initializeControls() {
+        // Enable audio on first user interaction
+        const enableAudio = () => {
+            this.audioManager.startBackgroundMusic();
+            document.removeEventListener('click', enableAudio);
+            document.removeEventListener('keydown', enableAudio);
+        };
+        document.addEventListener('click', enableAudio, { once: true });
+        document.addEventListener('keydown', enableAudio, { once: true });
+        
         document.addEventListener('keydown', (e) => this.handleKeyPress(e));
         document.getElementById('startBtn').addEventListener('click', () => this.start());
         document.getElementById('restartBtn').addEventListener('click', () => this.backToMenu());
@@ -58,9 +67,6 @@ class TetrisGame {
         
         document.getElementById('gameMode').value = this.stateManager.getGameMode();
         this.stateManager.updateUI();
-        
-        // Start background music on initial load
-        this.audioManager.startBackgroundMusic();
     }
 
     handleKeyPress(event) {
