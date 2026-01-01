@@ -789,13 +789,16 @@ header h1 {
 /* === HEADER ACTIONS === */
 header {
     display: flex !important;
-    justify-content: space-between !important;
+    justify-content: center !important;
     align-items: center !important;
+    position: relative !important;
 }
 
 .header-actions {
     display: flex;
     gap: 10px;
+    position: absolute;
+    right: 0;
 }
 
 .btn-icon {
