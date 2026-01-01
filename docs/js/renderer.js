@@ -12,6 +12,23 @@ export class Renderer {
         this.nextCanvas = nextCanvas;
         this.nextCtx = nextCanvas.getContext('2d');
         this.particles = [];
+        
+        this.initResponsiveCanvas();
+        window.addEventListener('resize', () => this.initResponsiveCanvas());
+    }
+
+    initResponsiveCanvas() {
+        const wrapper = this.mainCanvas.parentElement;
+        const maxWidth = Math.min(wrapper.clientWidth, 500);
+        const maxHeight = window.innerHeight - 250;
+        
+        const scale = Math.min(maxWidth / GAME_CONFIG.GRID_WIDTH, maxHeight / GAME_CONFIG.GRID_HEIGHT);
+        
+        this.mainCanvas.width = GAME_CONFIG.GRID_WIDTH * GAME_CONFIG.BLOCK_SIZE;
+        this.mainCanvas.height = GAME_CONFIG.GRID_HEIGHT * GAME_CONFIG.BLOCK_SIZE;
+        
+        this.mainCanvas.style.width = `${GAME_CONFIG.GRID_WIDTH * scale}px`;
+        this.mainCanvas.style.height = `${GAME_CONFIG.GRID_HEIGHT * scale}px`;
     }
 
     drawBlock(x, y, color, ctx = this.mainCtx) {

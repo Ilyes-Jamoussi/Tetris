@@ -88,8 +88,9 @@ body::before {
     text-align: center;
     z-index: 1;
     animation: fadeInUp 0.6s ease-out;
-    max-width: 1200px;
-    margin: 20px;
+    width: 95vw;
+    max-width: 1400px;
+    margin: 20px auto;
 }
 
 @keyframes fadeInUp {
@@ -133,11 +134,12 @@ header h1 {
 /* === GAME AREA === */
 #gameArea {
     display: grid;
-    grid-template-columns: 200px 300px 200px;
-    gap: 20px;
+    grid-template-columns: minmax(200px, 1fr) auto minmax(200px, 1fr);
+    gap: 30px;
     justify-content: center;
     align-items: start;
     margin-bottom: 20px;
+    width: 100%;
 }
 
 #canvasWrapper {
@@ -154,6 +156,14 @@ header h1 {
         inset 0 0 20px rgba(0, 0, 0, 0.8);
     border-radius: 8px;
     transition: var(--transition-smooth);
+    display: block;
+}
+
+#canvasWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 #mainCanvas:hover {
@@ -551,6 +561,7 @@ header h1 {
     #gameContainer {
         padding: 20px;
         margin: 10px;
+        width: 98vw;
     }
     
     header h1 {
@@ -558,13 +569,21 @@ header h1 {
         letter-spacing: 4px;
     }
     
-    #mainCanvas {
-        width: 250px !important;
-        height: 500px !important;
+    #gameArea {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    #leftPanel, #rightPanel {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
     }
     
     .info-box {
         padding: 12px;
+        flex: 1;
+        min-width: 120px;
     }
     
     .info-box h3 {
@@ -1093,6 +1112,16 @@ input:checked + .toggle-slider:before {
 }
 
 /* === RESPONSIVE FIXES === */
+@media (min-width: 1400px) {
+    #gameArea {
+        gap: 40px;
+    }
+    
+    .info-box {
+        padding: 20px;
+    }
+}
+
 @media (max-width: 768px) {
     #gameArea {
         grid-template-columns: 1fr;
