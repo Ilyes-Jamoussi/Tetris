@@ -88,7 +88,7 @@ docs/
 ├── index.html                  # Main HTML structure
 ├── favicon.svg                 # Application icon
 ├── css/
-│   └── styles.css             # Complete styling (~1200 lines)
+│   └── styles.css             # Complete styling
 └── js/
     ├── main.js                # Game controller and orchestration
     ├── constants.js           # Game configuration constants
@@ -188,19 +188,17 @@ python testTetris.py
 
 ### Code Organization
 
-**Total Lines of Code:** ~1,500 JavaScript, ~1,200 CSS
-
 **Module Breakdown:**
-- `main.js` (300 lines) - Game loop, event handling, orchestration
-- `gameStateManager.js` (100 lines) - State machine implementation
-- `audioManager.js` (150 lines) - Audio synthesis and music generation
-- `tutorialManager.js` (200 lines) - Interactive tutorial with smart positioning
-- `settingsManager.js` (100 lines) - User preferences and persistence
-- `scoreManager.js` (80 lines) - Score tracking and leaderboards
-- `pieceManager.js` (150 lines) - Tetromino logic and hold system
-- `gridManager.js` (120 lines) - Collision detection and line clearing
-- `renderer.js` (200 lines) - Canvas rendering and animations
-- `uiManager.js` (100 lines) - DOM updates and UI animations
+- `main.js` - Game loop, event handling, orchestration
+- `gameStateManager.js` - State machine implementation
+- `audioManager.js` - Audio synthesis and music generation
+- `tutorialManager.js` - Interactive tutorial with smart positioning
+- `settingsManager.js` - User preferences and persistence
+- `scoreManager.js` - Score tracking and leaderboards
+- `pieceManager.js` - Tetromino logic and hold system
+- `gridManager.js` - Collision detection and line clearing
+- `renderer.js` - Canvas rendering and animations
+- `uiManager.js` - DOM updates and UI animations
 
 ### Performance Optimizations
 - RequestAnimationFrame for smooth 60 FPS rendering
