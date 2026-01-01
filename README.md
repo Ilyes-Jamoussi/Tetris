@@ -60,22 +60,28 @@ A professional implementation of the classic Tetris game featuring modern web te
 
 ## Technologies
 
-### Core Technologies
-- **HTML5 Canvas** - Game rendering and graphics
-- **CSS3** - Custom properties, animations, gradients, flexbox
-- **JavaScript ES6** - Modules, classes, async/await
-- **Web Audio API** - Real-time audio synthesis for music and sound effects
+### Web Version
+- **JavaScript** - ES6 modules, classes, and modern syntax for game logic
+- **HTML5** - Canvas API for game rendering and graphics
+- **CSS3** - Custom properties, animations, gradients, and flexbox layout
+- **Web Audio API** - Real-time audio synthesis for background music and sound effects
+- **LocalStorage** - Client-side data persistence for scores and settings
+
+### Python Desktop Version
+- **Python** - Core game logic and application structure
+- **Pygame** - Graphics rendering and game loop management
+- **NumPy** - Numerical computations and array operations
 
 ### Development Practices
 - Modular architecture with separation of concerns
 - ES6 module system for code organization
 - Event-driven programming
 - State management pattern
-- LocalStorage for data persistence
+- Design patterns (State, Module, Observer, Strategy)
 
 ### Deployment
-- **GitHub Pages** - Static site hosting
-- **Git** - Version control
+- **GitHub Pages** - Static site hosting for web version
+- **Git** - Version control and collaboration
 
 ---
 
