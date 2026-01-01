@@ -9,6 +9,8 @@ export class PieceManager {
     constructor() {
         this.currentPiece = null;
         this.nextPiece = null;
+        this.holdPiece = null;
+        this.canHold = true;
         this.position = { x: 0, y: 0 };
     }
 
@@ -25,10 +27,38 @@ export class PieceManager {
     spawnPiece() {
         this.currentPiece = this.nextPiece || this.getRandomPiece();
         this.nextPiece = this.getRandomPiece();
+        this.canHold = true;
         this.position = {
             x: Math.floor(GAME_CONFIG.GRID_WIDTH / 2),
             y: 0
         };
+    }
+
+    holdCurrentPiece() {
+        if (!this.canHold) return false;
+        
+        if (this.holdPiece) {
+            [this.currentPiece, this.holdPiece] = [this.holdPiece, this.currentPiece];
+        } else {
+            this.holdPiece = this.currentPiece;
+            this.currentPiece = this.nextPiece;
+            this.nextPiece = this.getRandomPiece();
+        }
+        
+        this.canHold = false;
+        this.position = {
+            x: Math.floor(GAME_CONFIG.GRID_WIDTH / 2),
+            y: 0
+        };
+        return true;
+    }
+
+    getGhostPosition(gridManager) {
+        let ghostY = this.position.y;
+        while (gridManager.isValidPosition(this.getPositions(this.currentPiece.shape, { x: this.position.x, y: ghostY + 1 }))) {
+            ghostY++;
+        }
+        return ghostY;
     }
 
     rotatePiece() {
@@ -95,6 +125,10 @@ export class PieceManager {
 
     getNextPiece() {
         return this.nextPiece;
+    }
+
+    getHoldPiece() {
+        return this.holdPiece;
     }
 
     getPosition() {

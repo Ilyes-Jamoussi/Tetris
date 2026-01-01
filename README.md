@@ -23,11 +23,15 @@ A modern implementation of the classic Tetris game featuring a sleek cyberpunk d
 | ↑ | Rotate |
 | ↓ | Soft drop |
 | SPACE | Hard drop |
+| C | Hold piece |
 | P | Pause |
 
 ### Features
 
 - Modern cyberpunk-inspired UI with neon effects
+- **Ghost piece** for precise placement
+- **Hold piece** system for strategic gameplay
+- **Sound effects** (move, rotate, drop, line clear)
 - Particle system for line clear animations
 - Real-time score tracking with localStorage
 - Responsive design (desktop & mobile)
@@ -113,11 +117,15 @@ Une implémentation moderne du jeu Tetris classique avec un design cyberpunk él
 | ↑ | Rotation |
 | ↓ | Descente rapide |
 | ESPACE | Chute instantanée |
+| C | Réserve |
 | P | Pause |
 
 ### Fonctionnalités
 
 - Interface moderne inspirée cyberpunk avec effets néon
+- **Pièce fantôme** pour placement précis
+- **Système de réserve** pour gameplay stratégique
+- **Effets sonores** (déplacement, rotation, chute, lignes)
 - Système de particules pour les animations
 - Suivi des scores en temps réel avec localStorage
 - Design responsive (desktop & mobile)

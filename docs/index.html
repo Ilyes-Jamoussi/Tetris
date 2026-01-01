@@ -41,6 +41,11 @@
             <!-- Right Panel: Next piece + Controls -->
             <aside id="rightPanel">
                 <article class="info-box next-piece-box">
+                    <h3>Hold</h3>
+                    <canvas id="holdPieceCanvas" width="120" height="120" aria-label="Hold piece"></canvas>
+                </article>
+                
+                <article class="info-box next-piece-box">
                     <h3>Next</h3>
                     <canvas id="nextPieceCanvas" width="120" height="120" aria-label="Next piece preview"></canvas>
                 </article>
@@ -63,6 +68,10 @@
                         <div class="control-row">
                             <span class="key-mini">SPC</span>
                             <span>Hard Drop</span>
+                        </div>
+                        <div class="control-row">
+                            <span class="key-mini">C</span>
+                            <span>Hold</span>
                         </div>
                         <div class="control-row">
                             <span class="key-mini">P</span>

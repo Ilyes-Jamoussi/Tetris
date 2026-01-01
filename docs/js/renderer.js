@@ -82,6 +82,20 @@ export class Renderer {
         }
     }
 
+    drawGhostPiece(positions, color) {
+        const [r, g, b] = color;
+        positions.forEach(pos => {
+            if (pos.y >= 0) {
+                const blockX = pos.x * GAME_CONFIG.BLOCK_SIZE;
+                const blockY = pos.y * GAME_CONFIG.BLOCK_SIZE;
+                
+                this.mainCtx.strokeStyle = `rgba(${r}, ${g}, ${b}, 0.3)`;
+                this.mainCtx.lineWidth = 2;
+                this.mainCtx.strokeRect(blockX + 2, blockY + 2, GAME_CONFIG.BLOCK_SIZE - 4, GAME_CONFIG.BLOCK_SIZE - 4);
+            }
+        });
+    }
+
     drawCurrentPiece(positions, color) {
         positions.forEach(pos => {
             if (pos.y >= 0) {
@@ -107,6 +121,30 @@ export class Renderer {
             for (let j = 0; j < piece.shape[i].length; j++) {
                 if (piece.shape[i][j] === '0') {
                     this.drawBlock(j + offsetX, i + offsetY, piece.color, this.nextCtx);
+                }
+            }
+        }
+    }
+
+    drawHoldPiece(piece, holdCanvas) {
+        const holdCtx = holdCanvas.getContext('2d');
+        
+        // Fond avec gradient
+        const gradient = holdCtx.createRadialGradient(60, 60, 0, 60, 60, 60);
+        gradient.addColorStop(0, '#0a0a0a');
+        gradient.addColorStop(1, '#000000');
+        holdCtx.fillStyle = gradient;
+        holdCtx.fillRect(0, 0, holdCanvas.width, holdCanvas.height);
+        
+        if (!piece) return;
+        
+        const offsetX = (4 - piece.shape[0].length) / 2;
+        const offsetY = (4 - piece.shape.length) / 2;
+        
+        for (let i = 0; i < piece.shape.length; i++) {
+            for (let j = 0; j < piece.shape[i].length; j++) {
+                if (piece.shape[i][j] === '0') {
+                    this.drawBlock(j + offsetX, i + offsetY, piece.color, holdCtx);
                 }
             }
         }
@@ -145,12 +183,18 @@ export class Renderer {
         });
     }
 
-    render(grid, currentPiecePositions, currentPieceColor) {
+    render(grid, currentPiecePositions, currentPieceColor, ghostPositions, holdPiece, holdCanvas) {
         this.clearCanvas();
         this.drawGrid();
         this.drawGameGrid(grid);
+        if (ghostPositions && currentPieceColor) {
+            this.drawGhostPiece(ghostPositions, currentPieceColor);
+        }
         if (currentPiecePositions && currentPieceColor) {
             this.drawCurrentPiece(currentPiecePositions, currentPieceColor);
+        }
+        if (holdCanvas) {
+            this.drawHoldPiece(holdPiece, holdCanvas);
         }
         this.updateParticles();
     }

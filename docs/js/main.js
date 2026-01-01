@@ -9,12 +9,14 @@ import { PieceManager } from './pieceManager.js';
 import { Renderer } from './renderer.js';
 import { ScoreManager } from './scoreManager.js';
 import { UIManager } from './uiManager.js';
+import { AudioManager } from './audioManager.js';
 
 class TetrisGame {
     constructor() {
         this.gridManager = new GridManager();
         this.pieceManager = new PieceManager();
         this.scoreManager = new ScoreManager();
+        this.audioManager = new AudioManager();
         
         const mainCanvas = document.getElementById('mainCanvas');
         const nextCanvas = document.getElementById('nextPieceCanvas');
@@ -58,7 +60,8 @@ class TetrisGame {
             'ArrowRight': () => this.movePiece('right'),
             'ArrowDown': () => this.softDrop(),
             'ArrowUp': () => this.rotatePiece(),
-            'Space': () => this.hardDrop()
+            'Space': () => this.hardDrop(),
+            'KeyC': () => this.holdPiece()
         };
         
         const action = actions[event.code];
@@ -78,9 +81,10 @@ class TetrisGame {
         
         moveActions[direction]();
         
-        const positions = this.pieceManager.getPositions();
-        if (!this.gridManager.isValidPosition(positions)) {
+        if (!this.gridManager.isValidPosition(this.pieceManager.getPositions())) {
             this.pieceManager.undoMove(direction);
+        } else {
+            this.audioManager.play('move');
         }
     }
 
@@ -106,7 +110,9 @@ class TetrisGame {
             moved = true;
         }
         if (moved) {
+            this.audioManager.play('drop');
             this.uiManager.updateScore();
+            this.lockPiece();
         }
     }
 
@@ -116,6 +122,16 @@ class TetrisGame {
         
         if (this.gridManager.isValidPosition(positions)) {
             this.pieceManager.currentPiece.shape = rotatedShape;
+            this.audioManager.play('rotate');
+        }
+    }
+
+    holdPiece() {
+        if (this.pieceManager.holdCurrentPiece()) {
+            if (!this.gridManager.isValidPosition(this.pieceManager.getPositions())) {
+                this.gameOver();
+            }
+            this.audioManager.play('rotate');
         }
     }
 
@@ -168,6 +184,7 @@ class TetrisGame {
         if (linesCleared > 0) {
             // Effet visuel pour les lignes complétées
             this.showLineClearEffect(linesCleared);
+            this.audioManager.play('line');
             
             this.scoreManager.addLineScore(linesCleared);
             this.uiManager.updateScore();
@@ -212,8 +229,15 @@ class TetrisGame {
         const grid = this.gridManager.getGrid();
         const positions = this.pieceManager.getPositions();
         const color = this.pieceManager.getCurrentPiece()?.color;
+        const ghostY = this.pieceManager.getGhostPosition(this.gridManager);
+        const ghostPositions = this.pieceManager.getPositions(
+            this.pieceManager.getCurrentPiece().shape,
+            { x: this.pieceManager.position.x, y: ghostY }
+        );
+        const holdPiece = this.pieceManager.getHoldPiece();
+        const holdCanvas = document.getElementById('holdPieceCanvas');
         
-        this.renderer.render(grid, positions, color);
+        this.renderer.render(grid, positions, color, ghostPositions, holdPiece, holdCanvas);
     }
 
     gameLoop(currentTime) {
@@ -250,6 +274,7 @@ class TetrisGame {
         this.gameRunning = false;
         cancelAnimationFrame(this.animationId);
         
+        this.audioManager.play('gameOver');
         this.scoreManager.saveScore();
         this.uiManager.showGameOver(this.scoreManager.getScore());
         this.uiManager.updateHighScore();
