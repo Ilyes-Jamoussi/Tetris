@@ -3,195 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tetris Game</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            color: white;
-        }
-
-        #gameContainer {
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-
-        #gameArea {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            align-items: flex-start;
-        }
-
-        #mainCanvas {
-            border: 5px solid #ff0000;
-            background: #000;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
-        }
-
-        #sidePanel {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .info-box {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            min-width: 200px;
-        }
-
-        .info-box h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #ffd700;
-        }
-
-        .info-box p {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        #nextPieceCanvas {
-            border: 2px solid #666;
-            background: #000;
-            margin-top: 10px;
-        }
-
-        #controls {
-            margin-top: 20px;
-            font-size: 14px;
-            line-height: 1.8;
-        }
-
-        #startBtn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            color: white;
-            padding: 15px 40px;
-            font-size: 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: transform 0.2s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        #startBtn:hover {
-            transform: scale(1.05);
-        }
-
-        #startBtn:active {
-            transform: scale(0.95);
-        }
-
-        #gameOver {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.95);
-            padding: 40px;
-            border-radius: 20px;
-            border: 3px solid #ff0000;
-            z-index: 1000;
-        }
-
-        #gameOver h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-            color: #ff0000;
-        }
-
-        #highScores {
-            margin-top: 20px;
-            text-align: left;
-        }
-
-        #highScores h4 {
-            color: #ffd700;
-            margin-bottom: 10px;
-        }
-
-        #highScores ol {
-            padding-left: 20px;
-        }
-
-        #highScores li {
-            margin: 5px 0;
-        }
-    </style>
+    <meta name="description" content="Jeu Tetris classique en HTML5 - Jouez gratuitement dans votre navigateur">
+    <meta name="author" content="Ilyes Jamoussi">
+    <title>Tetris Game - Jeu Classique</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div id="gameContainer">
-        <h1>🎮 TETRIS 🎮</h1>
+    <main id="gameContainer">
+        <header>
+            <h1>🎮 TETRIS 🎮</h1>
+        </header>
         
-        <div id="gameArea">
-            <canvas id="mainCanvas" width="300" height="600"></canvas>
+        <section id="gameArea">
+            <canvas id="mainCanvas" width="300" height="600" aria-label="Grille de jeu Tetris"></canvas>
             
-            <div id="sidePanel">
-                <div class="info-box">
+            <aside id="sidePanel">
+                <article class="info-box">
                     <h3>Score</h3>
-                    <p id="score">0</p>
-                </div>
+                    <p id="score" aria-live="polite">0</p>
+                </article>
                 
-                <div class="info-box">
+                <article class="info-box">
                     <h3>Meilleur Score</h3>
                     <p id="highScore">0</p>
-                </div>
+                </article>
                 
-                <div class="info-box">
+                <article class="info-box">
                     <h3>Lignes</h3>
-                    <p id="lines">0</p>
-                </div>
+                    <p id="lines" aria-live="polite">0</p>
+                </article>
                 
-                <div class="info-box">
+                <article class="info-box">
                     <h3>Prochaine Pièce</h3>
-                    <canvas id="nextPieceCanvas" width="120" height="120"></canvas>
-                </div>
-            </div>
-        </div>
+                    <canvas id="nextPieceCanvas" width="120" height="120" aria-label="Aperçu de la prochaine pièce"></canvas>
+                </article>
+            </aside>
+        </section>
 
-        <button id="startBtn">COMMENCER</button>
+        <button id="startBtn" class="btn-primary">COMMENCER</button>
 
-        <div id="controls">
+        <footer id="controls">
             <p><strong>Contrôles:</strong></p>
             <p>← → : Déplacer | ↓ : Descendre | ↑ : Rotation</p>
             <p>ESPACE : Chute rapide | P : Pause</p>
-        </div>
-    </div>
+        </footer>
+    </main>
 
-    <div id="gameOver">
-        <h2>GAME OVER!</h2>
+    <div id="gameOver" role="dialog" aria-labelledby="gameOverTitle" aria-hidden="true">
+        <h2 id="gameOverTitle">GAME OVER!</h2>
         <p>Score Final: <span id="finalScore">0</span></p>
-        <div id="highScores">
+        <section id="highScores">
             <h4>🏆 Meilleurs Scores</h4>
             <ol id="scoresList"></ol>
-        </div>
-        <button id="restartBtn" style="margin-top: 20px; padding: 10px 30px; font-size: 18px; cursor: pointer; background: #667eea; color: white; border: none; border-radius: 25px;">Rejouer</button>
+        </section>
+        <button id="restartBtn" class="btn-secondary">Rejouer</button>
     </div>
 
-    <script src="tetris.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,207 @@
+/* ========================================
+   TETRIS GAME - STYLES
+   Author: Ilyes Jamoussi
+   ======================================== */
+
+/* === RESET & BASE === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-dark: rgba(0, 0, 0, 0.8);
+    --bg-light: rgba(255, 255, 255, 0.1);
+    --border-red: #ff0000;
+    --text-gold: #ffd700;
+    --text-white: #ffffff;
+    --shadow-main: 0 20px 60px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 30px rgba(255, 0, 0, 0.5);
+    --transition-fast: 0.2s ease;
+}
+
+body {
+    background: var(--primary-gradient);
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--text-white);
+}
+
+/* === MAIN CONTAINER === */
+#gameContainer {
+    background: var(--bg-dark);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: var(--shadow-main);
+    text-align: center;
+}
+
+/* === HEADER === */
+header h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* === GAME AREA === */
+#gameArea {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#mainCanvas {
+    border: 5px solid var(--border-red);
+    background: #000;
+    box-shadow: var(--shadow-glow);
+}
+
+/* === SIDE PANEL === */
+#sidePanel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-box {
+    background: var(--bg-light);
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 200px;
+}
+
+.info-box h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: var(--text-gold);
+}
+
+.info-box p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#nextPieceCanvas {
+    border: 2px solid #666;
+    background: #000;
+    margin-top: 10px;
+}
+
+/* === BUTTONS === */
+.btn-primary,
+.btn-secondary {
+    border: none;
+    color: var(--text-white);
+    padding: 15px 40px;
+    font-size: 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform var(--transition-fast);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    margin-top: 20px;
+}
+
+.btn-secondary {
+    background: #667eea;
+    margin-top: 20px;
+    padding: 10px 30px;
+    font-size: 18px;
+    border-radius: 25px;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    transform: scale(1.05);
+}
+
+.btn-primary:active,
+.btn-secondary:active {
+    transform: scale(0.95);
+}
+
+/* === CONTROLS === */
+#controls {
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* === GAME OVER MODAL === */
+#gameOver {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    border: 3px solid var(--border-red);
+    z-index: 1000;
+}
+
+#gameOver[aria-hidden="false"] {
+    display: block;
+}
+
+#gameOver h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: var(--border-red);
+}
+
+/* === HIGH SCORES === */
+#highScores {
+    margin-top: 20px;
+    text-align: left;
+}
+
+#highScores h4 {
+    color: var(--text-gold);
+    margin-bottom: 10px;
+}
+
+#highScores ol {
+    padding-left: 20px;
+}
+
+#highScores li {
+    margin: 5px 0;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    #gameArea {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    header h1 {
+        font-size: 32px;
+    }
+    
+    #mainCanvas {
+        width: 250px;
+        height: 500px;
+    }
+    
+    #sidePanel {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .info-box {
+        min-width: 150px;
+    }
+}

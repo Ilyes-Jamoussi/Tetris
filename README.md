@@ -8,52 +8,91 @@
 </div>
 
 ## Overview
-Welcome to the Tetris game project! This project aims to recreate the classic Tetris game using Python. Tetris is a tile-matching puzzle game originally designed and programmed by Alexey Pajitnov. The goal of the game is to manipulate tetrominoes to create horizontal lines of blocks without gaps. When such a line is created, it disappears, and any blocks above the cleared line fall. The game ends when the tetrominoes stack up to the top of the playing field.
+Welcome to the Tetris game project! This project includes both a Python desktop version and a modern web version of the classic Tetris game.
 
 <div align="center">
     <img src="TetrisGame.gif" alt="Tetris Game Demo" width="450"><br><br>
 </div>
-In this project, you will find the implementation of the Tetris game, including features such as grid initialization, piece rotation, and checking for complete lines. Additionally, you can test the game features using unit tests.
 
-## Prerequisites
+### 🎮 Web Version (Recommended)
+A complete HTML5/JavaScript implementation ready for deployment:
+- **Location:** `/web` directory
+- **Features:** Full Tetris gameplay, score saving, responsive design
+- **Play Online:** [Deploy on Netlify](https://netlify.com)
 
-Before starting, make sure you have the following installed on your system:
-- **Python 3.6 or later** (use Homebrew to install it if necessary).
-- **pip** (Python's package manager).
+### 🐍 Python Desktop Version
+Original pygame implementation for local play:
+- **Location:** Root directory
+- **Features:** Classic Tetris with pygame graphics
 
-## Project Setup
+---
 
-### Windows
+## Web Version Setup
 
-Install the required libraries:
+The web version is production-ready and requires no installation:
+
 ```bash
-python -m pip install pygame
-python -m pip install numpy
+# Simply open web/index.html in a browser
+# Or deploy to Netlify using the netlify.toml configuration
 ```
-### MacOS
 
-Create a Python virtual environment to isolate the dependencies:
+**Deployment:** The project is configured for automatic deployment on Netlify. Just connect your repository!
+
+---
+
+## Python Desktop Version Setup
+
+### Prerequisites
+- **Python 3.6 or later**
+- **pip** (Python's package manager)
+
+### Installation
+
+#### Windows
+```bash
+python -m pip install pygame numpy
+```
+
+#### MacOS
 ```bash
 python3 -m venv venv
 source venv/bin/activate
+pip install pygame numpy
 ```
 
-Install the required libraries:
-```bash
-pip install pygame
-pip install numpy
-```
-
-## Run the Game
-Once the dependencies are installed, start the game with:
+### Run the Game
 ```bash
 python main.py
 ```
 
-## Test the Code
-The file used for running tests is testsTetris.py. You can run the tests with the command:
+### Run Tests
 ```bash
 python testTetris.py
+```
+
+---
+
+## Project Structure
+
+```
+Tetris/
+├── web/                    # Web version (HTML5/JS)
+│   ├── index.html
+│   ├── css/
+│   │   └── styles.css
+│   └── js/
+│       ├── main.js
+│       ├── constants.js
+│       ├── gridManager.js
+│       ├── pieceManager.js
+│       ├── renderer.js
+│       ├── scoreManager.js
+│       └── uiManager.js
+├── main.py                 # Python desktop version
+├── fonctions.py
+├── consts.py
+├── utils/
+└── netlify.toml           # Deployment configuration
 ```
 
 ---
@@ -62,60 +101,92 @@ python testTetris.py
 
 ---
 
-
 ## Aperçu
-Bienvenue dans le projet de jeu Tetris ! Ce projet vise à recréer le jeu classique Tetris en utilisant Python. Tetris est un jeu de puzzle de correspondance de tuiles initialement conçu et programmé par Alexey Pajitnov. L'objectif du jeu est de manipuler des tétriminos pour créer des lignes horizontales de blocs sans espaces. Lorsqu'une telle ligne est créée, elle disparaît et tout bloc au-dessus de la ligne supprimée tombera. Le jeu se termine lorsque les tétriminos s'empilent jusqu'en haut du champ de jeu.
+Bienvenue dans le projet de jeu Tetris ! Ce projet comprend une version desktop Python et une version web moderne du jeu classique Tetris.
 
 <div align="center">
     <img src="TetrisGame.gif" alt="Tetris Game Demo" width="450"><br><br>
 </div>
 
-Dans ce projet, vous trouverez l'implémentation du jeu Tetris, y compris des fonctionnalités telles que l'initialisation de la grille, la rotation des pièces et la vérification des lignes complètes. De plus, vous pourrez tester les fonctionnalités du jeu à l'aide de tests unitaires.
+### 🎮 Version Web (Recommandée)
+Une implémentation complète HTML5/JavaScript prête pour le déploiement :
+- **Emplacement :** Répertoire `/web`
+- **Fonctionnalités :** Gameplay Tetris complet, sauvegarde des scores, design responsive
+- **Jouer en ligne :** [Déployer sur Netlify](https://netlify.com)
 
+### 🐍 Version Desktop Python
+Implémentation pygame originale pour jouer localement :
+- **Emplacement :** Répertoire racine
+- **Fonctionnalités :** Tetris classique avec graphiques pygame
 
-## Prérequis
+---
 
-Avant de commencer, assurez-vous que les éléments suivants sont installés sur votre système :
-- **Python 3.6 ou une version plus récente** (utilisez Homebrew pour l'installer si nécessaire).
-- **pip** (le gestionnaire de packages Python).
+## Configuration Version Web
 
+La version web est prête pour la production et ne nécessite aucune installation :
 
-## configuration du projet
-
-### Windows
-
-Installez les bibliothèques nécessaires:
 ```bash
-python -m pip install pygame
-python -m pip install numpy
+# Ouvrez simplement web/index.html dans un navigateur
+# Ou déployez sur Netlify en utilisant la configuration netlify.toml
 ```
 
-### MacOS
+**Déploiement :** Le projet est configuré pour un déploiement automatique sur Netlify. Connectez simplement votre dépôt !
 
-Créez un environnement virtuel Python pour isoler les dépendances :
+---
+
+## Configuration Version Desktop Python
+
+### Prérequis
+- **Python 3.6 ou plus récent**
+- **pip** (gestionnaire de packages Python)
+
+### Installation
+
+#### Windows
+```bash
+python -m pip install pygame numpy
+```
+
+#### MacOS
 ```bash
 python3 -m venv venv
 source venv/bin/activate
+pip install pygame numpy
 ```
 
-Installez les bibliothèques nécessaires:
-```bash
-pip install pygame
-pip install numpy
-```
-
-## Lancer le jeu
-
-Une fois les dépendances installées, lancez le jeu avec :
+### Lancer le jeu
 ```bash
 python main.py
 ```
 
-## Tester le code
-
-Le fichier utilisé pour rouler les tests est testsTetris.py. On voudra le rouler avec la commande:
+### Lancer les tests
 ```bash
 python testTetris.py
+```
+
+---
+
+## Structure du Projet
+
+```
+Tetris/
+├── web/                    # Version web (HTML5/JS)
+│   ├── index.html
+│   ├── css/
+│   │   └── styles.css
+│   └── js/
+│       ├── main.js
+│       ├── constants.js
+│       ├── gridManager.js
+│       ├── pieceManager.js
+│       ├── renderer.js
+│       ├── scoreManager.js
+│       └── uiManager.js
+├── main.py                 # Version desktop Python
+├── fonctions.py
+├── consts.py
+├── utils/
+└── netlify.toml           # Configuration de déploiement
 ```
 
 
