@@ -11,21 +11,15 @@
 <body>
     <main id="gameContainer">
         <header>
-            <h1>🎮 TETRIS 🎮</h1>
+            <h1>TETRIS</h1>
         </header>
         
         <section id="gameArea">
-            <canvas id="mainCanvas" width="300" height="600" aria-label="Grille de jeu Tetris"></canvas>
-            
-            <aside id="sidePanel">
+            <!-- Panneau gauche: Stats -->
+            <aside id="leftPanel">
                 <article class="info-box">
                     <h3>Score</h3>
                     <p id="score" aria-live="polite">0</p>
-                </article>
-                
-                <article class="info-box">
-                    <h3>Meilleur Score</h3>
-                    <p id="highScore">0</p>
                 </article>
                 
                 <article class="info-box">
@@ -34,50 +28,61 @@
                 </article>
                 
                 <article class="info-box">
-                    <h3>Prochaine Pièce</h3>
+                    <h3>Meilleur</h3>
+                    <p id="highScore">0</p>
+                </article>
+            </aside>
+
+            <!-- Canvas principal -->
+            <div id="canvasWrapper">
+                <canvas id="mainCanvas" width="300" height="600" aria-label="Grille de jeu Tetris"></canvas>
+            </div>
+            
+            <!-- Panneau droit: Prochaine pièce + Contrôles -->
+            <aside id="rightPanel">
+                <article class="info-box next-piece-box">
+                    <h3>Suivant</h3>
                     <canvas id="nextPieceCanvas" width="120" height="120" aria-label="Aperçu de la prochaine pièce"></canvas>
                 </article>
+                
+                <div class="controls-compact">
+                    <h4>Contrôles</h4>
+                    <div class="controls-list">
+                        <div class="control-row">
+                            <span class="key-mini">←→</span>
+                            <span>Déplacer</span>
+                        </div>
+                        <div class="control-row">
+                            <span class="key-mini">↑</span>
+                            <span>Rotation</span>
+                        </div>
+                        <div class="control-row">
+                            <span class="key-mini">↓</span>
+                            <span>Descendre</span>
+                        </div>
+                        <div class="control-row">
+                            <span class="key-mini">SPC</span>
+                            <span>Chute</span>
+                        </div>
+                        <div class="control-row">
+                            <span class="key-mini">P</span>
+                            <span>Pause</span>
+                        </div>
+                    </div>
+                </div>
             </aside>
         </section>
 
-        <button id="startBtn" class="btn-primary">COMMENCER</button>
-
-        <footer id="controls">
-            <h3>🎮 Contrôles</h3>
-            <div class="controls-grid">
-                <div class="control-item">
-                    <div class="key-icon">←</div>
-                    <span>Gauche</span>
-                </div>
-                <div class="control-item">
-                    <div class="key-icon">→</div>
-                    <span>Droite</span>
-                </div>
-                <div class="control-item">
-                    <div class="key-icon">↓</div>
-                    <span>Descendre</span>
-                </div>
-                <div class="control-item">
-                    <div class="key-icon">↑</div>
-                    <span>Rotation</span>
-                </div>
-                <div class="control-item">
-                    <div class="key-icon space">ESPACE</div>
-                    <span>Chute Rapide</span>
-                </div>
-                <div class="control-item">
-                    <div class="key-icon">P</div>
-                    <span>Pause</span>
-                </div>
-            </div>
-        </footer>
+        <div id="buttonContainer">
+            <button id="startBtn" class="btn-primary">COMMENCER</button>
+        </div>
     </main>
 
     <div id="gameOver" role="dialog" aria-labelledby="gameOverTitle" aria-hidden="true">
         <h2 id="gameOverTitle">GAME OVER!</h2>
         <p>Score Final: <span id="finalScore">0</span></p>
         <section id="highScores">
-            <h4>🏆 Meilleurs Scores</h4>
+            <h4>🏆 Top 5</h4>
             <ol id="scoresList"></ol>
         </section>
         <button id="restartBtn" class="btn-secondary">Rejouer</button>

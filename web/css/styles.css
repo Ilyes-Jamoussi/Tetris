@@ -82,12 +82,14 @@ body::before {
     background: var(--bg-card);
     backdrop-filter: blur(20px);
     border-radius: 24px;
-    padding: 40px;
+    padding: 30px;
     box-shadow: var(--shadow-lg);
     border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
     z-index: 1;
     animation: fadeInUp 0.6s ease-out;
+    max-width: 1200px;
+    margin: 20px;
 }
 
 @keyframes fadeInUp {
@@ -103,19 +105,19 @@ body::before {
 
 /* === HEADER === */
 header {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 header h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 56px;
+    font-size: 48px;
     font-weight: 900;
     background: var(--gradient-neon);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-    letter-spacing: 4px;
+    letter-spacing: 8px;
     animation: glow 2s ease-in-out infinite alternate;
 }
 
@@ -130,11 +132,18 @@ header h1 {
 
 /* === GAME AREA === */
 #gameArea {
-    display: flex;
-    gap: 30px;
+    display: grid;
+    grid-template-columns: 200px 300px 200px;
+    gap: 20px;
     justify-content: center;
-    align-items: flex-start;
-    margin-bottom: 30px;
+    align-items: start;
+    margin-bottom: 20px;
+}
+
+#canvasWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #mainCanvas {
@@ -154,19 +163,19 @@ header h1 {
         inset 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
-/* === SIDE PANEL === */
-#sidePanel {
+/* === SIDE PANELS === */
+#leftPanel,
+#rightPanel {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
 }
 
 .info-box {
     background: var(--bg-glass);
     backdrop-filter: blur(10px);
-    padding: 20px;
-    border-radius: 16px;
-    min-width: 220px;
+    padding: 15px;
+    border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: var(--transition-smooth);
     position: relative;
@@ -185,7 +194,7 @@ header h1 {
 }
 
 .info-box:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
     border-color: var(--primary);
     box-shadow: var(--shadow-md);
 }
@@ -196,9 +205,9 @@ header h1 {
 
 .info-box h3 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     color: var(--primary);
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -206,12 +215,20 @@ header h1 {
 
 .info-box p {
     font-family: 'Orbitron', sans-serif;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 900;
     background: var(--gradient-neon);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+.next-piece-box {
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #nextPieceCanvas {
@@ -222,13 +239,17 @@ header h1 {
 }
 
 /* === BUTTONS === */
+#buttonContainer {
+    margin: 20px 0;
+}
+
 .btn-primary,
 .btn-secondary {
     font-family: 'Orbitron', sans-serif;
     border: none;
     color: var(--text-primary);
-    padding: 16px 48px;
-    font-size: 18px;
+    padding: 14px 40px;
+    font-size: 16px;
     font-weight: 700;
     border-radius: 50px;
     cursor: pointer;
@@ -284,90 +305,67 @@ header h1 {
     transform: translateY(-2px);
 }
 
-/* === CONTROLS === */
-#controls {
-    margin-top: 30px;
-    padding: 30px;
+/* === COMPACT CONTROLS === */
+.controls-compact {
     background: var(--bg-glass);
-    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-#controls h3 {
+.controls-compact h4 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     color: var(--primary);
     text-transform: uppercase;
     letter-spacing: 2px;
     text-align: center;
 }
 
-.controls-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 15px;
-}
-
-.control-item {
+.controls-list {
     display: flex;
     flex-direction: column;
+    gap: 8px;
+}
+
+.control-row {
+    display: flex;
     align-items: center;
     gap: 10px;
-    padding: 15px;
+    padding: 6px 10px;
     background: rgba(0, 0, 0, 0.3);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 212, 255, 0.2);
-    transition: var(--transition-smooth);
-    cursor: default;
+    border-radius: 6px;
+    transition: var(--transition-fast);
 }
 
-.control-item:hover {
+.control-row:hover {
     background: rgba(0, 212, 255, 0.1);
-    border-color: var(--primary);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+    border-left: 2px solid var(--primary);
 }
 
-.key-icon {
+.key-mini {
     font-family: 'Orbitron', sans-serif;
-    font-size: 24px;
-    font-weight: 900;
-    width: 50px;
-    height: 50px;
+    font-size: 12px;
+    font-weight: 700;
+    min-width: 35px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 0, 255, 0.2));
-    border: 2px solid var(--primary);
-    border-radius: 8px;
+    border: 1px solid var(--primary);
+    border-radius: 4px;
     color: var(--primary);
-    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
-    transition: var(--transition-smooth);
+    box-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
 }
 
-.key-icon.space {
-    width: 80px;
+.control-row span:last-child {
     font-size: 12px;
-    letter-spacing: 1px;
-}
-
-.control-item:hover .key-icon {
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.4), rgba(255, 0, 255, 0.4));
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
-    transform: scale(1.1);
-}
-
-.control-item span {
-    font-size: 13px;
     color: var(--text-secondary);
-    font-weight: 500;
-    text-align: center;
-}
-
-.control-item:hover span {
-    color: var(--primary);
+    flex: 1;
 }
 
 /* === GAME OVER MODAL === */
@@ -379,7 +377,7 @@ header h1 {
     transform: translate(-50%, -50%);
     background: var(--bg-card);
     backdrop-filter: blur(20px);
-    padding: 50px;
+    padding: 40px;
     border-radius: 24px;
     border: 2px solid var(--danger);
     box-shadow: 
@@ -387,7 +385,8 @@ header h1 {
         0 0 40px rgba(255, 0, 85, 0.4);
     z-index: 1000;
     animation: modalAppear 0.4s ease-out;
-    min-width: 400px;
+    min-width: 350px;
+    max-width: 90vw;
 }
 
 @keyframes modalAppear {
@@ -418,7 +417,7 @@ header h1 {
 
 #gameOver h2 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 48px;
+    font-size: 42px;
     font-weight: 900;
     margin-bottom: 20px;
     color: var(--danger);
@@ -432,14 +431,14 @@ header h1 {
 }
 
 #gameOver p {
-    font-size: 20px;
-    margin-bottom: 30px;
+    font-size: 18px;
+    margin-bottom: 25px;
     color: var(--text-secondary);
 }
 
 #gameOver p span {
     font-family: 'Orbitron', sans-serif;
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 900;
     color: var(--accent);
     display: block;
@@ -448,19 +447,21 @@ header h1 {
 
 /* === HIGH SCORES === */
 #highScores {
-    margin-top: 30px;
+    margin-top: 25px;
     text-align: left;
     background: var(--bg-glass);
     padding: 20px;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 #highScores h4 {
     font-family: 'Orbitron', sans-serif;
     color: var(--accent);
     margin-bottom: 15px;
-    font-size: 18px;
+    font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
@@ -471,11 +472,12 @@ header h1 {
 }
 
 #highScores li {
-    margin: 10px 0;
+    margin: 8px 0;
     padding: 8px;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 6px;
     transition: var(--transition-fast);
+    font-size: 14px;
 }
 
 #highScores li:hover {
@@ -484,27 +486,15 @@ header h1 {
 }
 
 /* === RESPONSIVE === */
-@media (max-width: 768px) {
-    #gameContainer {
-        padding: 20px;
-    }
-    
-    header h1 {
-        font-size: 36px;
-        letter-spacing: 2px;
-    }
-    
+@media (max-width: 900px) {
     #gameArea {
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 15px;
     }
     
-    #mainCanvas {
-        width: 250px !important;
-        height: 500px !important;
-    }
-    
-    #sidePanel {
+    #leftPanel,
+    #rightPanel {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
@@ -512,7 +502,32 @@ header h1 {
     
     .info-box {
         min-width: 140px;
-        padding: 15px;
+        flex: 1;
+    }
+    
+    .controls-compact {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    #gameContainer {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    header h1 {
+        font-size: 36px;
+        letter-spacing: 4px;
+    }
+    
+    #mainCanvas {
+        width: 250px !important;
+        height: 500px !important;
+    }
+    
+    .info-box {
+        padding: 12px;
     }
     
     .info-box h3 {
@@ -524,36 +539,11 @@ header h1 {
     }
     
     #gameOver {
-        min-width: 90%;
         padding: 30px 20px;
     }
     
     #gameOver h2 {
         font-size: 32px;
-    }
-    
-    /* Controls responsive */
-    .controls-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .control-item {
-        padding: 12px;
-    }
-    
-    .key-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-    }
-    
-    .key-icon.space {
-        width: 60px;
-        font-size: 10px;
-    }
-    
-    .control-item span {
-        font-size: 11px;
     }
 }
 

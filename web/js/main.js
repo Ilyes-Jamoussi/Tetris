@@ -48,7 +48,6 @@ class TetrisGame {
         
         if (event.code === 'KeyP') {
             this.togglePause();
-            this.highlightKey('P');
             return;
         }
         
@@ -67,34 +66,7 @@ class TetrisGame {
             event.preventDefault();
             action();
             this.render();
-            
-            // Highlight de la touche pressée
-            const keyMap = {
-                'ArrowLeft': '←',
-                'ArrowRight': '→',
-                'ArrowDown': '↓',
-                'ArrowUp': '↑',
-                'Space': 'ESPACE'
-            };
-            this.highlightKey(keyMap[event.code]);
         }
-    }
-
-    highlightKey(keyText) {
-        const keyIcons = document.querySelectorAll('.key-icon');
-        keyIcons.forEach(icon => {
-            if (icon.textContent === keyText) {
-                icon.style.background = 'linear-gradient(135deg, var(--primary), var(--secondary))';
-                icon.style.transform = 'scale(0.95)';
-                icon.style.boxShadow = '0 0 30px var(--primary)';
-                
-                setTimeout(() => {
-                    icon.style.background = '';
-                    icon.style.transform = '';
-                    icon.style.boxShadow = '';
-                }, 150);
-            }
-        });
     }
 
     movePiece(direction) {
