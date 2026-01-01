@@ -3,80 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Classic Tetris game in HTML5 - Play for free in your browser">
+    <meta name="description" content="Modern Tetris game with tutorial and game modes">
     <meta name="author" content="Ilyes Jamoussi">
-    <title>Tetris Game - Classic Edition</title>
+    <title>Tetris - Modern Edition</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <main id="gameContainer">
         <header>
             <h1>TETRIS</h1>
+            <div class="header-actions">
+                <button id="tutorialBtn" class="btn-icon" title="Tutorial" aria-label="Start tutorial">
+                    <span>?</span>
+                </button>
+                <button id="settingsBtn" class="btn-icon" title="Settings" aria-label="Open settings">
+                    <span>⚙</span>
+                </button>
+            </div>
         </header>
         
         <section id="gameArea">
             <!-- Left Panel: Stats -->
             <aside id="leftPanel">
-                <article class="info-box">
+                <article class="info-box" data-tutorial="score">
                     <h3>Score</h3>
                     <p id="score" aria-live="polite">0</p>
                 </article>
                 
-                <article class="info-box">
+                <article class="info-box" data-tutorial="lines">
                     <h3>Lines</h3>
                     <p id="lines" aria-live="polite">0</p>
                 </article>
                 
-                <article class="info-box">
+                <article class="info-box" data-tutorial="best">
                     <h3>Best</h3>
                     <p id="highScore">0</p>
+                </article>
+
+                <article class="info-box mode-selector" data-tutorial="mode">
+                    <h3>Mode</h3>
+                    <select id="gameMode" class="mode-select">
+                        <option value="modern">Modern</option>
+                        <option value="classic">Classic</option>
+                    </select>
                 </article>
             </aside>
 
             <!-- Main Canvas -->
-            <div id="canvasWrapper">
+            <div id="canvasWrapper" data-tutorial="game">
                 <canvas id="mainCanvas" width="300" height="600" aria-label="Tetris game grid"></canvas>
             </div>
             
-            <!-- Right Panel: Next piece + Controls -->
+            <!-- Right Panel -->
             <aside id="rightPanel">
-                <article class="info-box next-piece-box">
+                <article class="info-box next-piece-box" data-tutorial="hold">
                     <h3>Hold</h3>
                     <canvas id="holdPieceCanvas" width="120" height="120" aria-label="Hold piece"></canvas>
                 </article>
                 
-                <article class="info-box next-piece-box">
+                <article class="info-box next-piece-box" data-tutorial="next">
                     <h3>Next</h3>
-                    <canvas id="nextPieceCanvas" width="120" height="120" aria-label="Next piece preview"></canvas>
+                    <canvas id="nextPieceCanvas" width="120" height="120" aria-label="Next piece"></canvas>
                 </article>
                 
-                <div class="controls-compact">
+                <div class="controls-compact" data-tutorial="controls">
                     <h4>Controls</h4>
-                    <div class="controls-list">
-                        <div class="control-row">
-                            <span class="key-mini">←→</span>
-                            <span>Move</span>
-                        </div>
-                        <div class="control-row">
-                            <span class="key-mini">↑</span>
-                            <span>Rotate</span>
-                        </div>
-                        <div class="control-row">
-                            <span class="key-mini">↓</span>
-                            <span>Soft Drop</span>
-                        </div>
-                        <div class="control-row">
-                            <span class="key-mini">SPC</span>
-                            <span>Hard Drop</span>
-                        </div>
-                        <div class="control-row">
-                            <span class="key-mini">C</span>
-                            <span>Hold</span>
-                        </div>
-                        <div class="control-row">
-                            <span class="key-mini">P</span>
-                            <span>Pause</span>
-                        </div>
+                    <div class="controls-grid">
+                        <div class="control-item"><kbd>←→</kbd><span>Move</span></div>
+                        <div class="control-item"><kbd>↑</kbd><span>Rotate</span></div>
+                        <div class="control-item"><kbd>↓</kbd><span>Drop</span></div>
+                        <div class="control-item"><kbd>Space</kbd><span>Instant</span></div>
+                        <div class="control-item"><kbd>C</kbd><span>Hold</span></div>
+                        <div class="control-item"><kbd>P</kbd><span>Pause</span></div>
                     </div>
                 </div>
             </aside>
@@ -87,8 +85,58 @@
         </div>
     </main>
 
-    <div id="gameOver" role="dialog" aria-labelledby="gameOverTitle" aria-hidden="true">
-        <div class="game-over-content">
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal" role="dialog" aria-labelledby="settingsTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="settingsTitle">Settings</h2>
+                <button class="modal-close" aria-label="Close settings">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label for="soundToggle">Sound Effects</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="soundToggle" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-group">
+                    <label for="volumeSlider">Volume</label>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="30" class="volume-slider">
+                    <span id="volumeValue">30%</span>
+                </div>
+                <div class="setting-group">
+                    <label for="ghostToggle">Ghost Piece</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="ghostToggle" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial Overlay -->
+    <div id="tutorialOverlay" class="tutorial-overlay" aria-hidden="true">
+        <div class="tutorial-spotlight"></div>
+        <div class="tutorial-tooltip">
+            <div class="tutorial-content">
+                <h3 id="tutorialTitle"></h3>
+                <p id="tutorialText"></p>
+            </div>
+            <div class="tutorial-actions">
+                <button id="tutorialSkip" class="btn-text">Skip</button>
+                <div class="tutorial-progress">
+                    <span id="tutorialStep">1</span> / <span id="tutorialTotal">7</span>
+                </div>
+                <button id="tutorialNext" class="btn-primary-small">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div id="gameOver" class="modal" role="dialog" aria-labelledby="gameOverTitle" aria-hidden="true">
+        <div class="modal-content">
             <h2 id="gameOverTitle">GAME OVER</h2>
             <div class="final-score-display">
                 <span class="score-label">Final Score</span>

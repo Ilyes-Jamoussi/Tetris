@@ -10,6 +10,8 @@ import { Renderer } from './renderer.js';
 import { ScoreManager } from './scoreManager.js';
 import { UIManager } from './uiManager.js';
 import { AudioManager } from './audioManager.js';
+import { TutorialManager } from './tutorialManager.js';
+import { SettingsManager } from './settingsManager.js';
 
 class TetrisGame {
     constructor() {
@@ -17,6 +19,8 @@ class TetrisGame {
         this.pieceManager = new PieceManager();
         this.scoreManager = new ScoreManager();
         this.audioManager = new AudioManager();
+        this.tutorialManager = new TutorialManager();
+        this.settingsManager = new SettingsManager(this.audioManager);
         
         const mainCanvas = document.getElementById('mainCanvas');
         const nextCanvas = document.getElementById('nextPieceCanvas');
@@ -26,23 +30,40 @@ class TetrisGame {
         
         this.gameRunning = false;
         this.gamePaused = false;
+        this.gameMode = 'modern';
         this.dropTime = 0;
         this.dropInterval = GAME_CONFIG.INITIAL_DROP_INTERVAL;
         this.animationId = null;
         
         this.initializeControls();
         this.initializeUI();
+        this.checkFirstVisit();
     }
 
     initializeControls() {
         document.addEventListener('keydown', (e) => this.handleKeyPress(e));
         document.getElementById('startBtn').addEventListener('click', () => this.start());
         document.getElementById('restartBtn').addEventListener('click', () => this.start());
+        document.getElementById('tutorialBtn').addEventListener('click', () => this.tutorialManager.start());
+        document.getElementById('gameMode').addEventListener('change', (e) => {
+            this.gameMode = e.target.value;
+            localStorage.setItem('tetris_game_mode', this.gameMode);
+        });
     }
 
     initializeUI() {
         this.uiManager.updateHighScore();
         this.renderer.render(this.gridManager.getGrid(), null, null);
+        
+        const savedMode = localStorage.getItem('tetris_game_mode') || 'modern';
+        this.gameMode = savedMode;
+        document.getElementById('gameMode').value = savedMode;
+    }
+
+    checkFirstVisit() {
+        if (this.tutorialManager.shouldShowOnLoad()) {
+            setTimeout(() => this.tutorialManager.start(), 1000);
+        }
     }
 
     handleKeyPress(event) {
@@ -127,6 +148,8 @@ class TetrisGame {
     }
 
     holdPiece() {
+        if (this.gameMode === 'classic') return;
+        
         if (this.pieceManager.holdCurrentPiece()) {
             if (!this.gridManager.isValidPosition(this.pieceManager.getPositions())) {
                 this.gameOver();
@@ -229,12 +252,17 @@ class TetrisGame {
         const grid = this.gridManager.getGrid();
         const positions = this.pieceManager.getPositions();
         const color = this.pieceManager.getCurrentPiece()?.color;
-        const ghostY = this.pieceManager.getGhostPosition(this.gridManager);
-        const ghostPositions = this.pieceManager.getPositions(
-            this.pieceManager.getCurrentPiece().shape,
-            { x: this.pieceManager.position.x, y: ghostY }
-        );
-        const holdPiece = this.pieceManager.getHoldPiece();
+        
+        let ghostPositions = null;
+        if (this.gameMode === 'modern' && this.settingsManager.isGhostEnabled()) {
+            const ghostY = this.pieceManager.getGhostPosition(this.gridManager);
+            ghostPositions = this.pieceManager.getPositions(
+                this.pieceManager.getCurrentPiece().shape,
+                { x: this.pieceManager.position.x, y: ghostY }
+            );
+        }
+        
+        const holdPiece = this.gameMode === 'modern' ? this.pieceManager.getHoldPiece() : null;
         const holdCanvas = document.getElementById('holdPieceCanvas');
         
         this.renderer.render(grid, positions, color, ghostPositions, holdPiece, holdCanvas);
