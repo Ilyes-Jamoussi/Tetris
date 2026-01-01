@@ -15,11 +15,7 @@ A modern implementation of the classic Tetris game featuring a sleek cyberpunk d
 
 ### [▶️ Play Now](https://tetris-game-project.netlify.app)
 
-<div align="center">
-    <img src="TetrisGame.gif" alt="Tetris Game Demo" width="450">
-</div>
-
-### ✨ Features
+### Features
 
 - Modern cyberpunk-inspired UI with neon effects
 - Particle system for line clear animations
@@ -28,6 +24,16 @@ A modern implementation of the classic Tetris game featuring a sleek cyberpunk d
 - Smooth animations and transitions
 - Next piece preview
 - Pause functionality
+
+### Controls
+
+| Key | Action |
+|-----|--------|
+| ← → | Move piece |
+| ↑ | Rotate |
+| ↓ | Soft drop |
+| SPACE | Hard drop |
+| P | Pause |
 
 ---
 
@@ -91,18 +97,6 @@ python testTetris.py
 
 ---
 
-## Controls
-
-| Key | Action |
-|-----|--------|
-| ← → | Move piece |
-| ↑ | Rotate |
-| ↓ | Soft drop |
-| SPACE | Hard drop |
-| P | Pause |
-
----
-
 <br>
 
 ## Aperçu
@@ -111,11 +105,7 @@ Une implémentation moderne du jeu Tetris classique avec un design cyberpunk él
 
 ### [▶️ Jouer Maintenant](https://tetris-game-project.netlify.app)
 
-<div align="center">
-    <img src="TetrisGame.gif" alt="Tetris Game Demo" width="450">
-</div>
-
-### ✨ Fonctionnalités
+### Fonctionnalités
 
 - Interface moderne inspirée cyberpunk avec effets néon
 - Système de particules pour les animations
@@ -124,6 +114,16 @@ Une implémentation moderne du jeu Tetris classique avec un design cyberpunk él
 - Animations et transitions fluides
 - Aperçu de la prochaine pièce
 - Fonction pause
+
+### Contrôles
+
+| Touche | Action |
+|--------|--------|
+| ← → | Déplacer |
+| ↑ | Rotation |
+| ↓ | Descente rapide |
+| ESPACE | Chute instantanée |
+| P | Pause |
 
 ---
 
@@ -184,18 +184,4 @@ python main.py
 ```bash
 python testTetris.py
 ```
-
----
-
-## Contrôles
-
-| Touche | Action |
-|--------|--------|
-| ← → | Déplacer |
-| ↑ | Rotation |
-| ↓ | Descente rapide |
-| ESPACE | Chute instantanée |
-| P | Pause |
-
-
 
