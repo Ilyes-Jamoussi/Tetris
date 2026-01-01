@@ -724,21 +724,60 @@ header h1 {
 /* === PAUSE OVERLAY === */
 .paused-overlay {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.95);
-    padding: 30px 60px;
-    border-radius: 16px;
-    border: 2px solid var(--primary);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.pause-content {
+    text-align: center;
+    animation: scaleIn 0.3s ease-out;
+}
+
+.pause-content h2 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 36px;
+    font-size: 48px;
     font-weight: 900;
     color: var(--primary);
-    text-shadow: 0 0 20px var(--primary);
+    text-shadow: 0 0 30px var(--primary);
+    letter-spacing: 8px;
+    margin-bottom: 20px;
     animation: pulse 1.5s ease-in-out infinite;
-    z-index: 100;
-    letter-spacing: 4px;
+}
+
+.pause-content p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    color: var(--text-secondary);
+    letter-spacing: 2px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* === DYNAMIC VISIBILITY === */
+.hold-piece-box {
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.mode-selector {
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out, max-height 0.3s ease-out;
+    overflow: hidden;
 }
 
 
@@ -1146,27 +1185,6 @@ input:checked + .toggle-slider:before {
 .btn-primary-small:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
-}
-
-/* === PAUSE OVERLAY FIX === */
-.paused-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Orbitron', sans-serif;
-    font-size: 48px;
-    font-weight: 900;
-    color: var(--primary);
-    text-shadow: 0 0 20px var(--primary);
-    z-index: 100;
-    pointer-events: none;
-    animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.05); }
 }
 
 /* === RESPONSIVE FIXES === */

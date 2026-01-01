@@ -12,9 +12,11 @@ import { UIManager } from './uiManager.js';
 import { AudioManager } from './audioManager.js';
 import { TutorialManager } from './tutorialManager.js';
 import { SettingsManager } from './settingsManager.js';
+import { GameStateManager, GAME_STATES } from './gameStateManager.js';
 
 class TetrisGame {
     constructor() {
+        this.stateManager = new GameStateManager();
         this.gridManager = new GridManager();
         this.pieceManager = new PieceManager();
         this.scoreManager = new ScoreManager();
@@ -28,9 +30,6 @@ class TetrisGame {
         
         this.uiManager = new UIManager(this.scoreManager);
         
-        this.gameRunning = false;
-        this.gamePaused = false;
-        this.gameMode = 'modern';
         this.dropTime = 0;
         this.dropInterval = GAME_CONFIG.INITIAL_DROP_INTERVAL;
         this.animationId = null;
@@ -43,11 +42,11 @@ class TetrisGame {
     initializeControls() {
         document.addEventListener('keydown', (e) => this.handleKeyPress(e));
         document.getElementById('startBtn').addEventListener('click', () => this.start());
-        document.getElementById('restartBtn').addEventListener('click', () => this.start());
+        document.getElementById('restartBtn').addEventListener('click', () => this.restart());
         document.getElementById('tutorialBtn').addEventListener('click', () => this.tutorialManager.start());
         document.getElementById('gameMode').addEventListener('change', (e) => {
-            this.gameMode = e.target.value;
-            localStorage.setItem('tetris_game_mode', this.gameMode);
+            this.stateManager.setGameMode(e.target.value);
+            this.stateManager.updateUI();
         });
     }
 
@@ -55,9 +54,8 @@ class TetrisGame {
         this.uiManager.updateHighScore();
         this.renderer.render(this.gridManager.getGrid(), null, null);
         
-        const savedMode = localStorage.getItem('tetris_game_mode') || 'modern';
-        this.gameMode = savedMode;
-        document.getElementById('gameMode').value = savedMode;
+        document.getElementById('gameMode').value = this.stateManager.getGameMode();
+        this.stateManager.updateUI();
     }
 
     checkFirstVisit() {
@@ -67,14 +65,14 @@ class TetrisGame {
     }
 
     handleKeyPress(event) {
-        if (!this.gameRunning) return;
+        if (!this.stateManager.isPlaying() && !this.stateManager.isPaused()) return;
         
         if (event.code === 'KeyP') {
             this.togglePause();
             return;
         }
         
-        if (this.gamePaused) return;
+        if (this.stateManager.isPaused()) return;
         
         const actions = {
             'ArrowLeft': () => this.movePiece('left'),
@@ -148,7 +146,7 @@ class TetrisGame {
     }
 
     holdPiece() {
-        if (this.gameMode === 'classic') return;
+        if (this.stateManager.getGameMode() === 'classic') return;
         
         if (this.pieceManager.holdCurrentPiece()) {
             if (!this.gridManager.isValidPosition(this.pieceManager.getPositions())) {
@@ -159,28 +157,15 @@ class TetrisGame {
     }
 
     togglePause() {
-        this.gamePaused = !this.gamePaused;
-        
-        // Afficher/masquer l'indicateur de pause
-        let pauseOverlay = document.querySelector('.paused-overlay');
-        
-        if (this.gamePaused) {
-            if (!pauseOverlay) {
-                pauseOverlay = document.createElement('div');
-                pauseOverlay.className = 'paused-overlay';
-                pauseOverlay.textContent = 'PAUSE';
-                document.getElementById('gameArea').style.position = 'relative';
-                document.getElementById('gameArea').appendChild(pauseOverlay);
-            }
-        } else {
-            if (pauseOverlay) {
-                pauseOverlay.remove();
-            }
+        if (this.stateManager.isPlaying()) {
+            this.stateManager.setState(GAME_STATES.PAUSED);
+        } else if (this.stateManager.isPaused()) {
+            this.stateManager.setState(GAME_STATES.PLAYING);
         }
     }
 
     update(deltaTime) {
-        if (!this.gameRunning || this.gamePaused) return;
+        if (!this.stateManager.isPlaying()) return;
         
         this.dropTime += deltaTime;
         
@@ -254,7 +239,7 @@ class TetrisGame {
         const color = this.pieceManager.getCurrentPiece()?.color;
         
         let ghostPositions = null;
-        if (this.gameMode === 'modern' && this.settingsManager.isGhostEnabled()) {
+        if (this.stateManager.getGameMode() === 'modern' && this.settingsManager.isGhostEnabled()) {
             const ghostY = this.pieceManager.getGhostPosition(this.gridManager);
             ghostPositions = this.pieceManager.getPositions(
                 this.pieceManager.getCurrentPiece().shape,
@@ -262,7 +247,7 @@ class TetrisGame {
             );
         }
         
-        const holdPiece = this.gameMode === 'modern' ? this.pieceManager.getHoldPiece() : null;
+        const holdPiece = this.stateManager.getGameMode() === 'modern' ? this.pieceManager.getHoldPiece() : null;
         const holdCanvas = document.getElementById('holdPieceCanvas');
         
         this.renderer.render(grid, positions, color, ghostPositions, holdPiece, holdCanvas);
@@ -275,7 +260,7 @@ class TetrisGame {
         this.update(deltaTime);
         this.render();
         
-        if (this.gameRunning) {
+        if (this.stateManager.isPlaying() || this.stateManager.isPaused()) {
             this.animationId = requestAnimationFrame((time) => this.gameLoop(time));
         }
     }
@@ -285,8 +270,6 @@ class TetrisGame {
         this.scoreManager.reset();
         this.dropInterval = GAME_CONFIG.INITIAL_DROP_INTERVAL;
         this.dropTime = 0;
-        this.gameRunning = true;
-        this.gamePaused = false;
         
         this.uiManager.reset();
         this.uiManager.hideGameOver();
@@ -294,18 +277,29 @@ class TetrisGame {
         this.pieceManager.spawnPiece();
         this.renderer.drawNextPiece(this.pieceManager.getNextPiece());
         
+        this.stateManager.setState(GAME_STATES.PLAYING);
+        
         this.lastTime = performance.now();
         this.gameLoop(this.lastTime);
     }
 
+    restart() {
+        this.stateManager.setState(GAME_STATES.MENU);
+        this.start();
+    }
+
     gameOver() {
-        this.gameRunning = false;
+        this.stateManager.setState(GAME_STATES.GAME_OVER);
         cancelAnimationFrame(this.animationId);
         
         this.audioManager.play('gameOver');
         this.scoreManager.saveScore();
         this.uiManager.showGameOver(this.scoreManager.getScore());
         this.uiManager.updateHighScore();
+        
+        setTimeout(() => {
+            this.stateManager.setState(GAME_STATES.MENU);
+        }, 100);
     }
 }
 
