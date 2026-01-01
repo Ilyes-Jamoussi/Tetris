@@ -58,6 +58,9 @@ class TetrisGame {
         
         document.getElementById('gameMode').value = this.stateManager.getGameMode();
         this.stateManager.updateUI();
+        
+        // Start background music on initial load
+        this.audioManager.startBackgroundMusic();
     }
 
     handleKeyPress(event) {
@@ -275,8 +278,8 @@ class TetrisGame {
         
         this.stateManager.setState(GAME_STATES.PLAYING);
         
-        // Start background music
-        this.audioManager.startBackgroundMusic();
+        // Stop background music when game starts
+        this.audioManager.stopBackgroundMusic();
         
         this.lastTime = performance.now();
         this.gameLoop(this.lastTime);
@@ -288,14 +291,14 @@ class TetrisGame {
         this.scoreManager.reset();
         this.renderer.render(this.gridManager.getGrid(), null, null);
         this.stateManager.setState(GAME_STATES.MENU);
+        
+        // Restart background music when back to menu
+        this.audioManager.startBackgroundMusic();
     }
 
     gameOver() {
         this.stateManager.setState(GAME_STATES.GAME_OVER);
         cancelAnimationFrame(this.animationId);
-        
-        // Stop background music
-        this.audioManager.stopBackgroundMusic();
         
         this.audioManager.play('gameOver');
         this.scoreManager.saveScore();
