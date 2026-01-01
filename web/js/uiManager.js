@@ -72,15 +72,16 @@ export class UIManager {
     showGameOver(finalScore) {
         this.elements.finalScore.textContent = finalScore;
         this.displayTopScores();
-        this.elements.gameOver.style.display = 'block';
         this.elements.gameOver.setAttribute('aria-hidden', 'false');
         
         // Animation d'entrée
-        this.elements.gameOver.style.animation = 'modalAppear 0.4s ease-out';
+        this.elements.gameOver.style.animation = 'none';
+        setTimeout(() => {
+            this.elements.gameOver.style.animation = '';
+        }, 10);
     }
 
     hideGameOver() {
-        this.elements.gameOver.style.display = 'none';
         this.elements.gameOver.setAttribute('aria-hidden', 'true');
     }
 
