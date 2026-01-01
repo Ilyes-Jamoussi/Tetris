@@ -106,12 +106,16 @@ body::before {
 
 /* === HEADER === */
 header {
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    position: relative;
 }
 
 header h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 48px;
+    font-family: 'Orbitron', monospace;
+    font-size: 3.5rem;
     font-weight: 900;
     background: var(--gradient-neon);
     -webkit-background-clip: text;
@@ -120,6 +124,13 @@ header h1 {
     text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
     letter-spacing: 8px;
     animation: glow 2s ease-in-out infinite alternate;
+}
+
+.header-actions {
+    position: absolute;
+    right: 0;
+    display: flex;
+    gap: 10px;
 }
 
 @keyframes glow {
@@ -133,13 +144,28 @@ header h1 {
 
 /* === GAME AREA === */
 #gameArea {
-    display: grid;
-    grid-template-columns: minmax(200px, 1fr) auto minmax(200px, 1fr);
-    gap: 30px;
+    display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: stretch;
+    gap: 30px;
     margin-bottom: 20px;
     width: 100%;
+}
+
+#leftPanel, #rightPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 200px;
+    flex-shrink: 0;
+}
+
+#canvasWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    max-width: 600px;
 }
 
 #canvasWrapper {
@@ -179,6 +205,16 @@ header h1 {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    width: 200px;
+    flex-shrink: 0;
+}
+
+#leftPanel {
+    justify-content: flex-start;
+}
+
+#rightPanel {
+    justify-content: flex-start;
 }
 
 .info-box {
@@ -569,15 +605,32 @@ header h1 {
         letter-spacing: 4px;
     }
     
+    .header-actions {
+        position: static;
+        margin-top: 10px;
+    }
+    
+    header {
+        flex-direction: column;
+    }
+    
     #gameArea {
-        grid-template-columns: 1fr;
-        gap: 15px;
+        flex-direction: column;
+        align-items: center;
     }
     
     #leftPanel, #rightPanel {
+        width: 100%;
+        max-width: 400px;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+        min-height: auto !important;
+    }
+    
+    #canvasWrapper {
+        order: -1;
+        margin-bottom: 20px;
     }
     
     .info-box {
