@@ -84,17 +84,17 @@ body::before {
     border-radius: 24px;
     padding: 20px;
     box-shadow: var(--shadow-lg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: none;
     text-align: center;
     z-index: 1;
     animation: fadeInUp 0.6s ease-out;
-    width: 95vw;
+    width: auto;
     max-width: 1400px;
-    height: 95vh;
+    min-height: 95vh;
     margin: auto;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: visible;
 }
 
 @keyframes fadeInUp {
@@ -276,6 +276,9 @@ header h1 {
 #buttonContainer {
     margin: 10px 0 0 0;
     flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn-primary,
@@ -311,6 +314,12 @@ header h1 {
     background: rgba(255, 255, 255, 0.3);
     transform: translate(-50%, -50%);
     transition: width 0.6s, height 0.6s;
+    z-index: 0;
+}
+
+.btn-primary span {
+    position: relative;
+    z-index: 1;
 }
 
 .btn-primary:hover::before {
