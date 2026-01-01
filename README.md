@@ -1,283 +1,225 @@
-# Tetris
+# Tetris - Modern Web Implementation
 
-<div align="center">
-  
-  [<img src="https://img.shields.io/badge/-English-blue?style=for-the-badge">](#overview)
-  [<img src="https://img.shields.io/badge/-Français-green?style=for-the-badge">](#aperçu)
+A professional implementation of the classic Tetris game featuring modern web technologies, clean architecture, and advanced gameplay features. Built with vanilla JavaScript ES6 modules and deployed on GitHub Pages.
 
-</div>
+**[Live Demo](https://ilyes-jamoussi.github.io/Tetris/)**
 
 ---
 
-## Overview
+## Table of Contents
 
-A modern, feature-rich implementation of the classic Tetris game with a sleek cyberpunk design, smooth animations, and professional gameplay. Built with vanilla JavaScript ES6 modules and deployed on GitHub Pages.
+- [Features](#features)
+- [Technologies](#technologies)
+- [Architecture](#architecture)
+- [Game Controls](#game-controls)
+- [Installation](#installation)
+- [Project Structure](#project-structure)
 
-### [▶️ Play Now](https://ilyes-jamoussi.github.io/Tetris/)
+---
 
-### Controls
+## Features
+
+### Game Modes
+- **Modern Mode**: Enhanced gameplay with hold piece system and ghost piece preview
+- **Classic Mode**: Traditional Tetris experience
+- Independent leaderboards for each mode (top 10 scores per mode)
+
+### Audio System
+- Background music with Tetris theme melody (Web Audio API synthesis)
+- Context-aware sound effects (piece landing, line clear, game over)
+- Separate volume controls for music and sound effects
+- Persistent audio preferences via localStorage
+
+### User Interface
+- Cyberpunk-inspired design with neon effects and gradients
+- Responsive canvas with dynamic sizing
+- Real-time score tracking and statistics
+- Smooth animations and particle effects
+- Symmetric layout with professional spacing
+
+### Tutorial System
+- Interactive 7-step tutorial (Modern) / 6-step tutorial (Classic)
+- Adaptive content based on selected game mode
+- Smart positioning with spotlight highlighting
+- Manual activation via dedicated button
+
+### State Management
+- Clean state machine: MENU → PLAYING → PAUSED → GAME_OVER
+- Proper state transitions with UI synchronization
+- Pause functionality with visual overlay
+
+### Settings & Persistence
+- Sound effects toggle
+- Background music toggle
+- Volume control (0-100%)
+- Ghost piece toggle
+- All preferences saved to localStorage
+- Mode-specific score persistence
+
+---
+
+## Technologies
+
+### Core Technologies
+- **HTML5 Canvas** - Game rendering and graphics
+- **CSS3** - Custom properties, animations, gradients, flexbox
+- **JavaScript ES6** - Modules, classes, async/await
+- **Web Audio API** - Real-time audio synthesis for music and sound effects
+
+### Development Practices
+- Modular architecture with separation of concerns
+- ES6 module system for code organization
+- Event-driven programming
+- State management pattern
+- LocalStorage for data persistence
+
+### Deployment
+- **GitHub Pages** - Static site hosting
+- **Git** - Version control
+
+---
+
+## Architecture
+
+### Module Structure
+
+```
+docs/
+├── index.html                  # Main HTML structure
+├── favicon.svg                 # Application icon
+├── css/
+│   └── styles.css             # Complete styling (~1200 lines)
+└── js/
+    ├── main.js                # Game controller and orchestration
+    ├── constants.js           # Game configuration constants
+    ├── gridManager.js         # Grid logic and collision detection
+    ├── pieceManager.js        # Tetromino management and hold system
+    ├── renderer.js            # Canvas rendering and animations
+    ├── scoreManager.js        # Score tracking and localStorage
+    ├── uiManager.js           # UI updates and animations
+    ├── audioManager.js        # Audio synthesis and playback
+    ├── tutorialManager.js     # Interactive tutorial system
+    ├── settingsManager.js     # User preferences management
+    └── gameStateManager.js    # State machine implementation
+```
+
+### Design Patterns
+- **State Pattern**: Game state management (MENU, PLAYING, PAUSED, GAME_OVER)
+- **Module Pattern**: ES6 modules for encapsulation
+- **Observer Pattern**: Event-driven UI updates
+- **Strategy Pattern**: Mode-specific behavior (Modern vs Classic)
+
+### Key Implementation Details
+- **Collision Detection**: Grid-based validation system
+- **Rendering Pipeline**: Optimized canvas drawing with requestAnimationFrame
+- **Audio Synthesis**: Web Audio API oscillators for dynamic sound generation
+- **Responsive Design**: Dynamic canvas sizing with viewport calculations
+- **Data Persistence**: Structured localStorage with mode-specific keys
+
+---
+
+## Game Controls
 
 | Key | Action |
 |-----|--------|
-| ← → | Move piece left/right |
-| ↑ | Rotate piece |
-| ↓ | Soft drop |
-| SPACE | Hard drop (instant) |
-| C | Hold piece (Modern mode) |
-| P | Pause/Resume |
-
-### Features
-
-#### 🎮 Game Modes
-- **Modern Mode**: Includes hold piece system and ghost piece preview
-- **Classic Mode**: Traditional Tetris experience without modern features
-- Separate high score leaderboards for each mode
-
-#### 🎨 Visual & UX
-- Cyberpunk-inspired UI with neon effects and gradients
-- **Ghost piece** for precise placement visualization
-- **Hold piece system** for strategic gameplay (Modern mode)
-- Smooth animations and particle effects on line clears
-- Responsive design (desktop & mobile)
-- Dynamic layout with centered game area
-- Professional symmetric spacing
-
-#### 🎵 Audio System
-- **Background music**: Tetris theme melody (looping)
-- **Sound effects**: Piece landing, line clear, game over
-- Separate toggles for music and SFX
-- Volume control (0-100%)
-- All audio settings saved to localStorage
-
-#### 📚 Tutorial System
-- Interactive 7-step tutorial (Modern) / 6-step (Classic)
-- Smart positioning with spotlight highlighting
-- Adapts to selected game mode
-- Manual activation via "?" button
-
-#### ⚙️ Settings
-- Sound effects toggle
-- Background music toggle
-- Volume slider
-- Ghost piece toggle
-- All preferences saved to localStorage
-
-#### 📊 Score System
-- Real-time score tracking
-- Separate high scores per game mode
-- Top 10 scores saved locally
-- Line clear bonuses (1-4 lines)
-- Soft drop and hard drop scoring
+| `←` `→` | Move piece horizontally |
+| `↑` | Rotate piece clockwise |
+| `↓` | Soft drop (accelerated fall) |
+| `SPACE` | Hard drop (instant placement) |
+| `C` | Hold piece (Modern mode only) |
+| `P` | Pause/Resume game |
 
 ---
 
-## Web Version
+## Installation
 
-### Tech Stack
-- HTML5 Canvas for game rendering
-- CSS3 with custom properties, animations, and gradients
-- JavaScript ES6 modules
-- Web Audio API for sound synthesis
-- LocalStorage for persistence
+### Web Version (Recommended)
 
-### Architecture
-```
-docs/
-├── index.html
-├── favicon.svg
-├── css/
-│   └── styles.css          (~1200 lines)
-└── js/
-    ├── main.js             # Game controller & state management
-    ├── constants.js        # Game configuration
-    ├── gridManager.js      # Grid logic & collision detection
-    ├── pieceManager.js     # Piece management & hold system
-    ├── renderer.js         # Canvas rendering & animations
-    ├── scoreManager.js     # Score tracking & localStorage
-    ├── uiManager.js        # UI updates & animations
-    ├── audioManager.js     # Music & sound effects
-    ├── tutorialManager.js  # Interactive tutorial
-    ├── settingsManager.js  # User preferences
-    └── gameStateManager.js # Game state (MENU/PLAYING/PAUSED/GAME_OVER)
+Access the live version at: [https://ilyes-jamoussi.github.io/Tetris/](https://ilyes-jamoussi.github.io/Tetris/)
+
+### Local Development
+
+1. Clone the repository:
+```bash
+git clone https://github.com/Ilyes-Jamoussi/Tetris.git
+cd Tetris/docs
 ```
 
-### Key Features Implementation
-- **State Management**: Clean state machine (MENU → PLAYING → PAUSED → GAME_OVER)
-- **Modular Architecture**: 11 independent ES6 modules (~1500 lines total)
-- **Responsive Canvas**: Dynamic sizing with synchronized side panels
-- **Audio Synthesis**: Web Audio API for music and SFX generation
-- **Tutorial System**: Context-aware with smart tooltip positioning
-- **Persistence**: Settings and scores saved to localStorage per mode
+2. Start a local server:
+```bash
+python3 -m http.server 8080
+```
 
----
+3. Open browser:
+```
+http://localhost:8080
+```
 
-## Python Desktop Version
+### Python Desktop Version
 
-Classic pygame implementation for offline play.
-
-### Prerequisites
+**Prerequisites:**
 - Python 3.6+
-- pip
+- pip package manager
 
-### Installation
+**Installation:**
 
-**Windows:**
+Windows:
 ```bash
 python -m pip install pygame numpy
+python main.py
 ```
 
-**macOS:**
+macOS/Linux:
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 pip install pygame numpy
-```
-
-### Run
-```bash
 python main.py
 ```
 
-### Tests
+**Run Tests:**
 ```bash
 python testTetris.py
 ```
 
 ---
 
-<br>
+## Project Structure
 
-## Aperçu
+### Code Organization
 
-Une implémentation moderne et complète du jeu Tetris classique avec un design cyberpunk élégant, des animations fluides et un gameplay professionnel. Développé en JavaScript vanilla avec modules ES6 et déployé sur GitHub Pages.
+**Total Lines of Code:** ~1,500 JavaScript, ~1,200 CSS
 
-### [▶️ Jouer Maintenant](https://ilyes-jamoussi.github.io/Tetris/)
+**Module Breakdown:**
+- `main.js` (300 lines) - Game loop, event handling, orchestration
+- `gameStateManager.js` (100 lines) - State machine implementation
+- `audioManager.js` (150 lines) - Audio synthesis and music generation
+- `tutorialManager.js` (200 lines) - Interactive tutorial with smart positioning
+- `settingsManager.js` (100 lines) - User preferences and persistence
+- `scoreManager.js` (80 lines) - Score tracking and leaderboards
+- `pieceManager.js` (150 lines) - Tetromino logic and hold system
+- `gridManager.js` (120 lines) - Collision detection and line clearing
+- `renderer.js` (200 lines) - Canvas rendering and animations
+- `uiManager.js` (100 lines) - DOM updates and UI animations
 
-### Contrôles
-
-| Touche | Action |
-|--------|--------|
-| ← → | Déplacer gauche/droite |
-| ↑ | Rotation |
-| ↓ | Descente rapide |
-| ESPACE | Chute instantanée |
-| C | Réserve (mode Modern) |
-| P | Pause/Reprendre |
-
-### Fonctionnalités
-
-#### 🎮 Modes de Jeu
-- **Mode Modern**: Inclut système de réserve et aperçu fantôme
-- **Mode Classic**: Expérience Tetris traditionnelle sans fonctionnalités modernes
-- Classements séparés pour chaque mode
-
-#### 🎨 Visuel & UX
-- Interface cyberpunk avec effets néon et dégradés
-- **Pièce fantôme** pour placement précis
-- **Système de réserve** pour gameplay stratégique (mode Modern)
-- Animations fluides et effets de particules
-- Design responsive (desktop & mobile)
-- Layout dynamique avec zone de jeu centrée
-- Espacement symétrique professionnel
-
-#### 🎵 Système Audio
-- **Musique de fond**: Thème Tetris en boucle
-- **Effets sonores**: Atterrissage, lignes complétées, game over
-- Contrôles séparés pour musique et SFX
-- Contrôle du volume (0-100%)
-- Tous les paramètres audio sauvegardés
-
-#### 📚 Système de Tutoriel
-- Tutoriel interactif 7 étapes (Modern) / 6 étapes (Classic)
-- Positionnement intelligent avec mise en évidence
-- S'adapte au mode de jeu sélectionné
-- Activation manuelle via bouton "?"
-
-#### ⚙️ Paramètres
-- Toggle effets sonores
-- Toggle musique de fond
-- Curseur de volume
-- Toggle pièce fantôme
-- Toutes les préférences sauvegardées
-
-#### 📊 Système de Score
-- Suivi des scores en temps réel
-- High scores séparés par mode de jeu
-- Top 10 scores sauvegardés localement
-- Bonus lignes complétées (1-4 lignes)
-- Scoring descente rapide et instantanée
+### Performance Optimizations
+- RequestAnimationFrame for smooth 60 FPS rendering
+- Efficient collision detection with grid-based checks
+- Minimal DOM manipulation with cached element references
+- Optimized canvas drawing with layered rendering
 
 ---
 
-## Version Web
+## License
 
-### Stack Technique
-- HTML5 Canvas pour le rendu du jeu
-- CSS3 avec propriétés personnalisées, animations et dégradés
-- Modules JavaScript ES6
-- Web Audio API pour synthèse sonore
-- LocalStorage pour la persistance
-
-### Architecture
-```
-docs/
-├── index.html
-├── favicon.svg
-├── css/
-│   └── styles.css          (~1200 lignes)
-└── js/
-    ├── main.js             # Contrôleur & gestion d'états
-    ├── constants.js        # Configuration du jeu
-    ├── gridManager.js      # Logique grille & collisions
-    ├── pieceManager.js     # Gestion pièces & réserve
-    ├── renderer.js         # Rendu Canvas & animations
-    ├── scoreManager.js     # Scores & localStorage
-    ├── uiManager.js        # Mises à jour UI & animations
-    ├── audioManager.js     # Musique & effets sonores
-    ├── tutorialManager.js  # Tutoriel interactif
-    ├── settingsManager.js  # Préférences utilisateur
-    └── gameStateManager.js # États du jeu
-```
-
-### Implémentation Clés
-- **Gestion d'États**: Machine à états propre (MENU → PLAYING → PAUSED → GAME_OVER)
-- **Architecture Modulaire**: 11 modules ES6 indépendants (~1500 lignes total)
-- **Canvas Responsive**: Dimensionnement dynamique avec panneaux synchronisés
-- **Synthèse Audio**: Web Audio API pour génération musique et SFX
-- **Système Tutoriel**: Contextuel avec positionnement intelligent
-- **Persistance**: Paramètres et scores sauvegardés par mode
+This project is available for educational and portfolio purposes.
 
 ---
 
-## Version Desktop Python
+## Author
 
-Implémentation pygame classique pour jouer hors ligne.
+**Ilyes Jamoussi**
 
-### Prérequis
-- Python 3.6+
-- pip
-
-### Installation
-
-**Windows :**
-```bash
-python -m pip install pygame numpy
-```
-
-**macOS :**
-```bash
-python3 -m venv venv
-source venv/bin/activate
-pip install pygame numpy
-```
-
-### Exécution
-```bash
-python main.py
-```
-
-### Tests
-```bash
-python testTetris.py
-```
+- GitHub: [@Ilyes-Jamoussi](https://github.com/Ilyes-Jamoussi)
+- Project Link: [https://github.com/Ilyes-Jamoussi/Tetris](https://github.com/Ilyes-Jamoussi/Tetris)
 
