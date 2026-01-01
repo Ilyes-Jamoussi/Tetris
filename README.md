@@ -15,16 +15,6 @@ A modern implementation of the classic Tetris game featuring a sleek cyberpunk d
 
 ### [▶️ Play Now](https://tetris-game-project.netlify.app)
 
-### Features
-
-- Modern cyberpunk-inspired UI with neon effects
-- Particle system for line clear animations
-- Real-time score tracking with localStorage
-- Responsive design (desktop & mobile)
-- Smooth animations and transitions
-- Next piece preview
-- Pause functionality
-
 ### Controls
 
 | Key | Action |
@@ -34,6 +24,16 @@ A modern implementation of the classic Tetris game featuring a sleek cyberpunk d
 | ↓ | Soft drop |
 | SPACE | Hard drop |
 | P | Pause |
+
+### Features
+
+- Modern cyberpunk-inspired UI with neon effects
+- Particle system for line clear animations
+- Real-time score tracking with localStorage
+- Responsive design (desktop & mobile)
+- Smooth animations and transitions
+- Next piece preview
+- Pause functionality
 
 ---
 
@@ -105,16 +105,6 @@ Une implémentation moderne du jeu Tetris classique avec un design cyberpunk él
 
 ### [▶️ Jouer Maintenant](https://tetris-game-project.netlify.app)
 
-### Fonctionnalités
-
-- Interface moderne inspirée cyberpunk avec effets néon
-- Système de particules pour les animations
-- Suivi des scores en temps réel avec localStorage
-- Design responsive (desktop & mobile)
-- Animations et transitions fluides
-- Aperçu de la prochaine pièce
-- Fonction pause
-
 ### Contrôles
 
 | Touche | Action |
@@ -124,6 +114,16 @@ Une implémentation moderne du jeu Tetris classique avec un design cyberpunk él
 | ↓ | Descente rapide |
 | ESPACE | Chute instantanée |
 | P | Pause |
+
+### Fonctionnalités
+
+- Interface moderne inspirée cyberpunk avec effets néon
+- Système de particules pour les animations
+- Suivi des scores en temps réel avec localStorage
+- Design responsive (desktop & mobile)
+- Animations et transitions fluides
+- Aperçu de la prochaine pièce
+- Fonction pause
 
 ---
 
