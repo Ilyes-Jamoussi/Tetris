@@ -1,5 +1,4 @@
-# PAS TOUCHER À CE FICHIER
-
+import asyncio
 import pygame
 
 from consts import *
@@ -81,7 +80,7 @@ def drawWindow(surface, grid, score=0, last_score = 0):
     drawGrid(surface, grid)
 
 
-def drawMainMenu(win):
+async def drawMainMenu(win):
     run = True
     while run:
         win.fill((0,0,0))
@@ -91,13 +90,14 @@ def drawMainMenu(win):
             if event.type == pygame.QUIT:
                 run = False
             if event.type == pygame.KEYDOWN:
-                main(win)
+                await main(win)
+        await asyncio.sleep(0)
 
     pygame.display.quit()
 
 
 # ================================================ MAIN ================================================
-def main(window):
+async def main(window):
 
     # initialisation des variables
     doitGenererNouvellePiece = False
@@ -229,10 +229,15 @@ def main(window):
             pygame.time.delay(1500)
             run = False
 
+        await asyncio.sleep(0)
 
 
 
-if __name__ == "__main__":
+
+async def start_game():
     win = pygame.display.set_mode((LARGEUR_ECRAN, HAUTEUR_ECRAN))
     pygame.display.set_caption('Tetris')
-    drawMainMenu(win)
+    await drawMainMenu(win)
+
+if __name__ == "__main__":
+    asyncio.run(start_game())
