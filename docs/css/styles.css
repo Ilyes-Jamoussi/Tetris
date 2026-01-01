@@ -82,7 +82,7 @@ body::before {
     background: var(--bg-card);
     backdrop-filter: blur(20px);
     border-radius: 24px;
-    padding: 30px;
+    padding: 20px;
     box-shadow: var(--shadow-lg);
     border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
@@ -90,7 +90,11 @@ body::before {
     animation: fadeInUp 0.6s ease-out;
     width: 95vw;
     max-width: 1400px;
-    margin: 20px auto;
+    height: 95vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 @keyframes fadeInUp {
@@ -109,20 +113,21 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     position: relative;
+    flex-shrink: 0;
 }
 
 header h1 {
     font-family: 'Orbitron', monospace;
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     font-weight: 900;
     background: var(--gradient-neon);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-    letter-spacing: 8px;
+    letter-spacing: 6px;
     animation: glow 2s ease-in-out infinite alternate;
 }
 
@@ -147,16 +152,18 @@ header h1 {
     display: flex;
     justify-content: center;
     align-items: stretch;
-    gap: 30px;
-    margin-bottom: 20px;
+    gap: 20px;
+    flex: 1;
     width: 100%;
+    min-height: 0;
+    overflow: hidden;
 }
 
 #leftPanel, #rightPanel {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    width: 200px;
+    gap: 10px;
+    width: 180px;
     flex-shrink: 0;
 }
 
@@ -166,12 +173,7 @@ header h1 {
     align-items: center;
     flex: 1;
     max-width: 600px;
-}
-
-#canvasWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
 }
 
 #mainCanvas {
@@ -204,8 +206,8 @@ header h1 {
 #rightPanel {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    width: 200px;
+    gap: 10px;
+    width: 180px;
     flex-shrink: 0;
 }
 
@@ -220,7 +222,7 @@ header h1 {
 .info-box {
     background: var(--bg-glass);
     backdrop-filter: blur(10px);
-    padding: 15px;
+    padding: 10px;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: var(--transition-smooth);
@@ -251,17 +253,17 @@ header h1 {
 
 .info-box h3 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     color: var(--primary);
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
 }
 
 .info-box p {
     font-family: 'Orbitron', sans-serif;
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 900;
     background: var(--gradient-neon);
     -webkit-background-clip: text;
@@ -270,23 +272,26 @@ header h1 {
 }
 
 .next-piece-box {
-    min-height: 180px;
+    min-height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-#nextPieceCanvas {
+#nextPieceCanvas, #holdPieceCanvas {
     border: 2px solid rgba(0, 212, 255, 0.3);
     background: rgba(0, 0, 0, 0.5);
-    margin-top: 10px;
+    margin-top: 8px;
     border-radius: 8px;
+    width: 100px;
+    height: 100px;
 }
 
 /* === BUTTONS === */
 #buttonContainer {
-    margin: 20px 0;
+    margin: 10px 0 0 0;
+    flex-shrink: 0;
 }
 
 .btn-primary,
@@ -355,19 +360,19 @@ header h1 {
 .controls-compact {
     background: var(--bg-glass);
     backdrop-filter: blur(10px);
-    padding: 15px;
+    padding: 10px;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .controls-compact h4 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     color: var(--primary);
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     text-align: center;
 }
 
@@ -437,7 +442,7 @@ header h1 {
 .game-over-content {
     background: var(--bg-card);
     backdrop-filter: blur(20px);
-    padding: 40px 35px;
+    padding: 30px;
     border-radius: 24px;
     border: 2px solid var(--danger);
     box-shadow: 
@@ -452,11 +457,11 @@ header h1 {
 @keyframes modalAppear {
     from {
         opacity: 0;
-        transform: scale(0.8) translateY(-20px);
+        transform: scale(0.9);
     }
     to {
         opacity: 1;
-        transform: scale(1) translateY(0);
+        transform: scale(1);
     }
 }
 
@@ -814,8 +819,8 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    padding: 8px 4px;
+    gap: 3px;
+    padding: 6px 4px;
     background: rgba(0, 0, 0, 0.3);
     border-radius: 6px;
     transition: var(--transition-fast);
@@ -828,9 +833,9 @@ header {
 
 .control-item kbd {
     font-family: 'Orbitron', sans-serif;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    padding: 4px 8px;
+    padding: 3px 6px;
     background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 0, 255, 0.2));
     border: 1px solid var(--primary);
     border-radius: 4px;
@@ -839,7 +844,7 @@ header {
 }
 
 .control-item span {
-    font-size: 10px;
+    font-size: 9px;
     color: var(--text-secondary);
     text-align: center;
 }

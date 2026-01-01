@@ -18,9 +18,9 @@ export class Renderer {
     }
 
     initResponsiveCanvas() {
-        const wrapper = this.mainCanvas.parentElement;
-        const availableWidth = Math.min(wrapper.clientWidth, 600);
-        const availableHeight = window.innerHeight - 300;
+        const gameArea = document.getElementById('gameArea');
+        const availableHeight = gameArea.clientHeight;
+        const availableWidth = Math.min(gameArea.clientWidth - 400, 600);
         
         const blockSize = Math.min(
             availableWidth / GAME_CONFIG.GRID_WIDTH,
@@ -28,16 +28,18 @@ export class Renderer {
             30
         );
         
+        const canvasWidth = GAME_CONFIG.GRID_WIDTH * blockSize;
+        const canvasHeight = GAME_CONFIG.GRID_HEIGHT * blockSize;
+        
         this.mainCanvas.width = GAME_CONFIG.GRID_WIDTH * GAME_CONFIG.BLOCK_SIZE;
         this.mainCanvas.height = GAME_CONFIG.GRID_HEIGHT * GAME_CONFIG.BLOCK_SIZE;
         
-        this.mainCanvas.style.width = `${GAME_CONFIG.GRID_WIDTH * blockSize}px`;
-        this.mainCanvas.style.height = `${GAME_CONFIG.GRID_HEIGHT * blockSize}px`;
+        this.mainCanvas.style.width = `${canvasWidth}px`;
+        this.mainCanvas.style.height = `${canvasHeight}px`;
         
-        // Update side panels height to match canvas
-        const canvasHeight = GAME_CONFIG.GRID_HEIGHT * blockSize;
-        document.getElementById('leftPanel').style.minHeight = `${canvasHeight}px`;
-        document.getElementById('rightPanel').style.minHeight = `${canvasHeight}px`;
+        // Synchronize side panels height
+        document.getElementById('leftPanel').style.height = `${canvasHeight}px`;
+        document.getElementById('rightPanel').style.height = `${canvasHeight}px`;
     }
 
     drawBlock(x, y, color, ctx = this.mainCtx) {
