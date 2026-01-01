@@ -42,7 +42,7 @@ class TetrisGame {
     initializeControls() {
         document.addEventListener('keydown', (e) => this.handleKeyPress(e));
         document.getElementById('startBtn').addEventListener('click', () => this.start());
-        document.getElementById('restartBtn').addEventListener('click', () => this.restart());
+        document.getElementById('restartBtn').addEventListener('click', () => this.backToMenu());
         document.getElementById('tutorialBtn').addEventListener('click', () => this.tutorialManager.start());
         document.getElementById('gameMode').addEventListener('change', (e) => {
             this.stateManager.setGameMode(e.target.value);
@@ -283,9 +283,12 @@ class TetrisGame {
         this.gameLoop(this.lastTime);
     }
 
-    restart() {
+    backToMenu() {
+        this.uiManager.hideGameOver();
+        this.gridManager.reset();
+        this.scoreManager.reset();
+        this.renderer.render(this.gridManager.getGrid(), null, null);
         this.stateManager.setState(GAME_STATES.MENU);
-        this.start();
     }
 
     gameOver() {
@@ -296,10 +299,6 @@ class TetrisGame {
         this.scoreManager.saveScore();
         this.uiManager.showGameOver(this.scoreManager.getScore());
         this.uiManager.updateHighScore();
-        
-        setTimeout(() => {
-            this.stateManager.setState(GAME_STATES.MENU);
-        }, 100);
     }
 }
 
