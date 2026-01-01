@@ -44,7 +44,7 @@ export class ScoreManager {
         const scores = this.getAllScores();
         scores.push({
             score: this.score,
-            date: new Date().toLocaleDateString('fr-FR')
+            date: new Date().toLocaleDateString('en-US')
         });
         
         scores.sort((a, b) => b.score - a.score);

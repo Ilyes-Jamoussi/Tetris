@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Jeu Tetris classique en HTML5 - Jouez gratuitement dans votre navigateur">
+    <meta name="description" content="Classic Tetris game in HTML5 - Play for free in your browser">
     <meta name="author" content="Ilyes Jamoussi">
-    <title>Tetris Game - Jeu Classique</title>
+    <title>Tetris Game - Classic Edition</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
         </header>
         
         <section id="gameArea">
-            <!-- Panneau gauche: Stats -->
+            <!-- Left Panel: Stats -->
             <aside id="leftPanel">
                 <article class="info-box">
                     <h3>Score</h3>
@@ -23,46 +23,46 @@
                 </article>
                 
                 <article class="info-box">
-                    <h3>Lignes</h3>
+                    <h3>Lines</h3>
                     <p id="lines" aria-live="polite">0</p>
                 </article>
                 
                 <article class="info-box">
-                    <h3>Meilleur</h3>
+                    <h3>Best</h3>
                     <p id="highScore">0</p>
                 </article>
             </aside>
 
-            <!-- Canvas principal -->
+            <!-- Main Canvas -->
             <div id="canvasWrapper">
-                <canvas id="mainCanvas" width="300" height="600" aria-label="Grille de jeu Tetris"></canvas>
+                <canvas id="mainCanvas" width="300" height="600" aria-label="Tetris game grid"></canvas>
             </div>
             
-            <!-- Panneau droit: Prochaine pièce + Contrôles -->
+            <!-- Right Panel: Next piece + Controls -->
             <aside id="rightPanel">
                 <article class="info-box next-piece-box">
-                    <h3>Suivant</h3>
-                    <canvas id="nextPieceCanvas" width="120" height="120" aria-label="Aperçu de la prochaine pièce"></canvas>
+                    <h3>Next</h3>
+                    <canvas id="nextPieceCanvas" width="120" height="120" aria-label="Next piece preview"></canvas>
                 </article>
                 
                 <div class="controls-compact">
-                    <h4>Contrôles</h4>
+                    <h4>Controls</h4>
                     <div class="controls-list">
                         <div class="control-row">
                             <span class="key-mini">←→</span>
-                            <span>Déplacer</span>
+                            <span>Move</span>
                         </div>
                         <div class="control-row">
                             <span class="key-mini">↑</span>
-                            <span>Rotation</span>
+                            <span>Rotate</span>
                         </div>
                         <div class="control-row">
                             <span class="key-mini">↓</span>
-                            <span>Descendre</span>
+                            <span>Soft Drop</span>
                         </div>
                         <div class="control-row">
                             <span class="key-mini">SPC</span>
-                            <span>Chute</span>
+                            <span>Hard Drop</span>
                         </div>
                         <div class="control-row">
                             <span class="key-mini">P</span>
@@ -74,18 +74,23 @@
         </section>
 
         <div id="buttonContainer">
-            <button id="startBtn" class="btn-primary">COMMENCER</button>
+            <button id="startBtn" class="btn-primary">START GAME</button>
         </div>
     </main>
 
     <div id="gameOver" role="dialog" aria-labelledby="gameOverTitle" aria-hidden="true">
-        <h2 id="gameOverTitle">GAME OVER!</h2>
-        <p>Score Final: <span id="finalScore">0</span></p>
-        <section id="highScores">
-            <h4>🏆 Top 5</h4>
-            <ol id="scoresList"></ol>
-        </section>
-        <button id="restartBtn" class="btn-secondary">Rejouer</button>
+        <div class="game-over-content">
+            <h2 id="gameOverTitle">GAME OVER</h2>
+            <div class="final-score-display">
+                <span class="score-label">Final Score</span>
+                <span id="finalScore" class="score-value">0</span>
+            </div>
+            <section id="highScores">
+                <h4>🏆 Top 5 Scores</h4>
+                <ol id="scoresList"></ol>
+            </section>
+            <button id="restartBtn" class="btn-secondary">Play Again</button>
+        </div>
     </div>
 
     <script type="module" src="js/main.js"></script>

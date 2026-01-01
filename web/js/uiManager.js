@@ -103,6 +103,6 @@ export class UIManager {
         this.previousLines = 0;
         this.updateScore();
         this.updateLines();
-        this.elements.startBtn.textContent = 'REDÉMARRER';
+        this.elements.startBtn.textContent = 'RESTART';
     }
 }
