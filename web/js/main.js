@@ -121,6 +121,23 @@ class TetrisGame {
 
     togglePause() {
         this.gamePaused = !this.gamePaused;
+        
+        // Afficher/masquer l'indicateur de pause
+        let pauseOverlay = document.querySelector('.paused-overlay');
+        
+        if (this.gamePaused) {
+            if (!pauseOverlay) {
+                pauseOverlay = document.createElement('div');
+                pauseOverlay.className = 'paused-overlay';
+                pauseOverlay.textContent = 'PAUSE';
+                document.getElementById('gameArea').style.position = 'relative';
+                document.getElementById('gameArea').appendChild(pauseOverlay);
+            }
+        } else {
+            if (pauseOverlay) {
+                pauseOverlay.remove();
+            }
+        }
     }
 
     update(deltaTime) {
@@ -149,6 +166,9 @@ class TetrisGame {
         
         const linesCleared = this.gridManager.clearFullLines();
         if (linesCleared > 0) {
+            // Effet visuel pour les lignes complétées
+            this.showLineClearEffect(linesCleared);
+            
             this.scoreManager.addLineScore(linesCleared);
             this.uiManager.updateScore();
             this.uiManager.updateLines();
@@ -160,6 +180,21 @@ class TetrisGame {
         } else {
             this.pieceManager.spawnPiece();
             this.renderer.drawNextPiece(this.pieceManager.getNextPiece());
+        }
+    }
+
+    showLineClearEffect(linesCleared) {
+        // Animation flash pour les lignes complétées
+        const canvas = document.getElementById('mainCanvas');
+        canvas.style.boxShadow = '0 0 50px #00ff88, 0 0 100px #00ff88';
+        
+        setTimeout(() => {
+            canvas.style.boxShadow = '0 0 20px var(--primary), 0 0 40px var(--primary)';
+        }, 200);
+        
+        // Effet de particules
+        for (let i = 0; i < linesCleared; i++) {
+            this.renderer.createLineParticles(i);
         }
     }
 
