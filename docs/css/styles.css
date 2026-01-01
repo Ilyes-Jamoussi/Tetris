@@ -1073,7 +1073,7 @@ input:checked + .toggle-slider:before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.92);
     z-index: 2000;
     display: none;
 }
@@ -1084,12 +1084,32 @@ input:checked + .toggle-slider:before {
 
 .tutorial-spotlight {
     position: absolute;
-    border: 3px solid var(--primary);
+    border: 4px solid var(--primary);
     border-radius: 12px;
-    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.85), 0 0 30px var(--primary);
+    box-shadow: 
+        0 0 0 9999px rgba(0, 0, 0, 0.92),
+        0 0 40px var(--primary),
+        inset 0 0 20px rgba(0, 212, 255, 0.3);
+    background: rgba(0, 212, 255, 0.1);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
     z-index: 2001;
+    animation: spotlightPulse 2s ease-in-out infinite;
+}
+
+@keyframes spotlightPulse {
+    0%, 100% { 
+        box-shadow: 
+            0 0 0 9999px rgba(0, 0, 0, 0.92),
+            0 0 40px var(--primary),
+            inset 0 0 20px rgba(0, 212, 255, 0.3);
+    }
+    50% { 
+        box-shadow: 
+            0 0 0 9999px rgba(0, 0, 0, 0.92),
+            0 0 60px var(--primary),
+            inset 0 0 30px rgba(0, 212, 255, 0.5);
+    }
 }
 
 .tutorial-tooltip {
@@ -1098,8 +1118,8 @@ input:checked + .toggle-slider:before {
     backdrop-filter: blur(20px);
     border: 2px solid var(--primary);
     border-radius: 16px;
-    padding: 20px;
-    max-width: 400px;
+    padding: 24px;
+    max-width: 420px;
     box-shadow: var(--shadow-lg), 0 0 40px rgba(0, 212, 255, 0.5);
     z-index: 2002;
     animation: tooltipAppear 0.3s ease-out;
@@ -1118,15 +1138,16 @@ input:checked + .toggle-slider:before {
 
 .tutorial-content h3 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 20px;
+    font-size: 22px;
     color: var(--primary);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    text-shadow: 0 0 10px var(--primary);
 }
 
 .tutorial-content p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-primary);
     margin-bottom: 20px;
 }
 
@@ -1162,7 +1183,7 @@ input:checked + .toggle-slider:before {
     background: var(--gradient-neon);
     border: none;
     color: white;
-    padding: 8px 20px;
+    padding: 10px 24px;
     border-radius: 20px;
     font-size: 14px;
     font-weight: 700;

@@ -95,11 +95,30 @@ export class TutorialManager {
         this.spotlight.style.left = `${rect.left - 10}px`;
         this.spotlight.style.top = `${rect.top - 10}px`;
         
+        // Position tooltip intelligently
         const tooltipX = rect.left + rect.width / 2;
-        const tooltipY = rect.bottom + 20;
-        this.tooltip.style.left = `${tooltipX}px`;
+        let tooltipY = rect.bottom + 30;
+        let transform = 'translateX(-50%)';
+        
+        // If tooltip would go off bottom, place it above
+        if (tooltipY + 200 > window.innerHeight) {
+            tooltipY = rect.top - 30;
+            transform = 'translateX(-50%) translateY(-100%)';
+        }
+        
+        // If tooltip would go off right, adjust
+        if (tooltipX + 210 > window.innerWidth) {
+            this.tooltip.style.left = `${window.innerWidth - 230}px`;
+            this.tooltip.style.transform = 'none';
+        } else if (tooltipX - 210 < 0) {
+            this.tooltip.style.left = '20px';
+            this.tooltip.style.transform = 'none';
+        } else {
+            this.tooltip.style.left = `${tooltipX}px`;
+            this.tooltip.style.transform = transform;
+        }
+        
         this.tooltip.style.top = `${tooltipY}px`;
-        this.tooltip.style.transform = 'translateX(-50%)';
         
         this.nextBtn.textContent = this.currentStep === this.steps.length - 1 ? 'Finish' : 'Next';
     }
