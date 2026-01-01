@@ -91,7 +91,7 @@ body::before {
     width: auto;
     max-width: 1400px;
     min-height: 95vh;
-    margin: auto;
+    margin: 2.5vh auto;
     display: flex;
     flex-direction: column;
     overflow: visible;
