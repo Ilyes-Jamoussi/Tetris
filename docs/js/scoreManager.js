@@ -9,7 +9,17 @@ export class ScoreManager {
     constructor() {
         this.score = 0;
         this.lines = 0;
-        this.storageKey = 'tetrisScores';
+        this.gameMode = 'modern';
+        this.storageKeyModern = 'tetrisScores_modern';
+        this.storageKeyClassic = 'tetrisScores_classic';
+    }
+
+    setGameMode(mode) {
+        this.gameMode = mode;
+    }
+
+    getStorageKey() {
+        return this.gameMode === 'modern' ? this.storageKeyModern : this.storageKeyClassic;
     }
 
     reset() {
@@ -41,21 +51,24 @@ export class ScoreManager {
     saveScore() {
         if (this.score === 0) return;
         
+        const storageKey = this.getStorageKey();
         const scores = this.getAllScores();
         scores.push({
             score: this.score,
-            date: new Date().toLocaleDateString('en-US')
+            date: new Date().toLocaleDateString('en-US'),
+            mode: this.gameMode
         });
         
         scores.sort((a, b) => b.score - a.score);
         const topScores = scores.slice(0, 10);
         
-        localStorage.setItem(this.storageKey, JSON.stringify(topScores));
+        localStorage.setItem(storageKey, JSON.stringify(topScores));
     }
 
     getAllScores() {
         try {
-            const scores = localStorage.getItem(this.storageKey);
+            const storageKey = this.getStorageKey();
+            const scores = localStorage.getItem(storageKey);
             return scores ? JSON.parse(scores) : [];
         } catch (error) {
             console.error('Error loading scores:', error);

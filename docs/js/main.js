@@ -46,11 +46,14 @@ class TetrisGame {
         document.getElementById('tutorialBtn').addEventListener('click', () => this.tutorialManager.start());
         document.getElementById('gameMode').addEventListener('change', (e) => {
             this.stateManager.setGameMode(e.target.value);
+            this.scoreManager.setGameMode(e.target.value);
+            this.uiManager.updateHighScore();
             this.stateManager.updateUI();
         });
     }
 
     initializeUI() {
+        this.scoreManager.setGameMode(this.stateManager.getGameMode());
         this.uiManager.updateHighScore();
         this.renderer.render(this.gridManager.getGrid(), null, null);
         
@@ -268,6 +271,7 @@ class TetrisGame {
     start() {
         this.gridManager.reset();
         this.scoreManager.reset();
+        this.scoreManager.setGameMode(this.stateManager.getGameMode());
         this.dropInterval = GAME_CONFIG.INITIAL_DROP_INTERVAL;
         this.dropTime = 0;
         
