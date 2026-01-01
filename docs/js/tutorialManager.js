@@ -67,8 +67,6 @@ export class TutorialManager {
         this.totalEl = document.getElementById('tutorialTotal');
         this.nextBtn = document.getElementById('tutorialNext');
         this.skipBtn = document.getElementById('tutorialSkip');
-        
-        this.totalEl.textContent = this.steps.length;
     }
 
     attachEvents() {
