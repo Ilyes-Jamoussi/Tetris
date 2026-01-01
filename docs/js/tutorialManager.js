@@ -152,13 +152,17 @@ export class TutorialManager {
                 this.tooltip.style.left = `${window.innerWidth - 230}px`;
                 this.tooltip.style.top = `${tooltipY}px`;
                 this.tooltip.style.transform = 'none';
-                this.nextBtn.textContent = this.currentStep === this.steps.length - 1 ? 'Finish' : 'Next';
+                const isLastStep = this.currentStep === this.steps.length - 1;
+                this.nextBtn.textContent = isLastStep ? 'Finish' : 'Next';
+                this.skipBtn.style.display = isLastStep ? 'none' : 'block';
                 return;
             } else if (tooltipX - 210 < 0) {
                 this.tooltip.style.left = '20px';
                 this.tooltip.style.top = `${tooltipY}px`;
                 this.tooltip.style.transform = 'none';
-                this.nextBtn.textContent = this.currentStep === this.steps.length - 1 ? 'Finish' : 'Next';
+                const isLastStep = this.currentStep === this.steps.length - 1;
+                this.nextBtn.textContent = isLastStep ? 'Finish' : 'Next';
+                this.skipBtn.style.display = isLastStep ? 'none' : 'block';
                 return;
             }
         }
@@ -167,7 +171,10 @@ export class TutorialManager {
         this.tooltip.style.top = `${tooltipY}px`;
         this.tooltip.style.transform = transform;
         
-        this.nextBtn.textContent = this.currentStep === this.steps.length - 1 ? 'Finish' : 'Next';
+        // Update button text and hide Skip on last step
+        const isLastStep = this.currentStep === this.steps.length - 1;
+        this.nextBtn.textContent = isLastStep ? 'Finish' : 'Next';
+        this.skipBtn.style.display = isLastStep ? 'none' : 'block';
     }
 
     next() {
