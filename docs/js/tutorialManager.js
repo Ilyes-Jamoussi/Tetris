@@ -7,44 +7,52 @@ export class TutorialManager {
     constructor() {
         this.currentStep = 0;
         this.isActive = false;
-        this.steps = [
+        this.allSteps = [
             {
                 target: '[data-tutorial="game"]',
                 title: 'Welcome to Tetris!',
-                text: 'This is the game board where pieces fall. Stack them to clear lines and score points!'
+                text: 'This is the game board where pieces fall. Stack them to clear lines and score points!',
+                modes: ['modern', 'classic']
             },
             {
                 target: '[data-tutorial="score"]',
                 title: 'Score Tracking',
-                text: 'Your current score. Clear lines to earn points: 1 line = 100, 2 lines = 300, 3 lines = 500, 4 lines = 800!'
+                text: 'Your current score. Clear lines to earn points: 1 line = 100, 2 lines = 300, 3 lines = 500, 4 lines = 800!',
+                modes: ['modern', 'classic']
             },
             {
                 target: '[data-tutorial="mode"]',
                 title: 'Game Modes',
-                text: 'Modern mode includes Hold piece and Ghost guide. Classic mode is traditional Tetris without these features.'
+                text: 'Modern mode includes Hold piece and Ghost guide. Classic mode is traditional Tetris without these features.',
+                modes: ['modern', 'classic']
             },
             {
                 target: '[data-tutorial="hold"]',
                 title: 'Hold Piece',
-                text: 'Press C to save the current piece for later. Strategic players use this to wait for the perfect moment!'
+                text: 'Press C to save the current piece for later. Strategic players use this to wait for the perfect moment!',
+                modes: ['modern']
             },
             {
                 target: '[data-tutorial="next"]',
                 title: 'Next Piece',
-                text: 'Preview the next piece to plan your strategy ahead of time.'
+                text: 'Preview the next piece to plan your strategy ahead of time.',
+                modes: ['modern', 'classic']
             },
             {
                 target: '[data-tutorial="controls"]',
                 title: 'Controls',
-                text: 'Use arrow keys to move and rotate. Space for instant drop. Master these for high scores!'
+                text: 'Use arrow keys to move and rotate. Space for instant drop. Master these for high scores!',
+                modes: ['modern', 'classic']
             },
             {
                 target: '#startBtn',
                 title: 'Ready to Play?',
-                text: 'Click START GAME to begin. Good luck and have fun!'
+                text: 'Click START GAME to begin. Good luck and have fun!',
+                modes: ['modern', 'classic']
             }
         ];
         
+        this.steps = [];
         this.initElements();
         this.attachEvents();
     }
@@ -72,8 +80,15 @@ export class TutorialManager {
     }
 
     start() {
+        // Get current game mode
+        const gameMode = document.getElementById('gameMode').value;
+        
+        // Filter steps based on game mode
+        this.steps = this.allSteps.filter(step => step.modes.includes(gameMode));
+        
         this.currentStep = 0;
         this.isActive = true;
+        this.totalEl.textContent = this.steps.length;
         this.overlay.setAttribute('aria-hidden', 'false');
         this.overlay.style.display = 'flex';
         this.showStep();
